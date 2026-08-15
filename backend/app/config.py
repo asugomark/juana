@@ -9,9 +9,7 @@ class Config:
     JWT_SECRET_KEY = os.environ.get("JWT_SECRET_KEY", "dev-jwt-secret-change-me")
     JWT_ACCESS_TOKEN_EXPIRES = timedelta(days=7)
 
-    SQLALCHEMY_DATABASE_URI = os.environ.get(
-        "DATABASE_URL", "mysql+pymysql://root:123Enter$@localhost:3306/juana"
-    )
+    SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL")
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
     # These SASAPAY_*/PUBLIC_CALLBACK_BASE_URL env vars are now only a BOOTSTRAP
