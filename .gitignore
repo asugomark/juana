@@ -1,28 +1,15 @@
-# Python / Backend
-.venv/
-venv/
+# Backend
 backend/venv/
 backend/.env
-.env
-*.pyc
-__pycache__/
-**/__pycache__/
-
-# Backend uploads / generated files
 backend/uploads/
+backend/__pycache__/
+backend/**/__pycache__/
+backend/*.pyc
 
-# Node / Frontend
+# Frontend
 frontend/node_modules/
 frontend/dist/
 frontend/dev-dist/
-frontend/.env
-frontend/.env.local
-frontend/.env.development
-frontend/.env.production
-
-# PyCharm
-.idea/
-*.iml
 
 # OS
 .DS_Store

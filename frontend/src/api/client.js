@@ -114,6 +114,13 @@ export const api = {
   adminUpdateSasaPaySettings: (data) => request('/admin/settings/sasapay', { method: 'POST', body: data }),
   adminTestSasaPayConnection: () => request('/admin/settings/sasapay/test', { method: 'POST' }),
 
+  adminCollections: (status) => request(`/admin/finance/collections${status ? `?status=${status}` : ''}`),
+  adminCashflow: (days = 30) => request(`/admin/finance/cashflow?days=${days}`),
+  adminIncomeStatement: (start, end) => request(`/admin/finance/income-statement?start=${start}&end=${end}`),
+  adminListExpenses: (start, end) => request(`/admin/finance/expenses?start=${start}&end=${end}`),
+  adminCreateExpense: (data) => request('/admin/finance/expenses', { method: 'POST', body: data }),
+  adminDeleteExpense: (id) => request(`/admin/finance/expenses/${id}`, { method: 'DELETE' }),
+
   submitRating: (hangoutId, stars, comment) =>
     request(`/hangouts/${hangoutId}/rating`, { method: 'POST', body: { stars, comment } }),
   myRating: (hangoutId) => request(`/hangouts/${hangoutId}/rating`),
@@ -165,7 +172,17 @@ export const api = {
   // A 403 with error 'kyc_required' means the KYC gate needs to run first.
   withdraw: (phoneNumber) => request('/earnings/withdraw', { method: 'POST', body: { phone_number: phoneNumber } }),
 
-  startVerification: () => request('/verification/start', { method: 'POST' }),
+  submitKyc: (idDocumentFile, selfieFile) => {
+    const formData = new FormData()
+    formData.append('id_document', idDocumentFile)
+    formData.append('selfie', selfieFile)
+    return uploadRequest('/verification/submit', formData)
+  },
+  myKycStatus: () => request('/verification/status'),
+
+  adminListKyc: (status = 'pending') => request(`/admin/kyc?status=${status}`),
+  adminApproveKyc: (id) => request(`/admin/kyc/${id}/approve`, { method: 'POST' }),
+  adminRejectKyc: (id, reason) => request(`/admin/kyc/${id}/reject`, { method: 'POST', body: { reason } }),
 
   removeMember: (hangoutId, memberUserId) =>
     request(`/hangouts/${hangoutId}/members/${memberUserId}/remove`, { method: 'POST' }),

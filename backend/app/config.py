@@ -29,6 +29,11 @@ class Config:
     # see app/utils/settings.py module docstring for how to generate one.
     SETTINGS_ENCRYPTION_KEY = os.environ.get("SETTINGS_ENCRYPTION_KEY", "")
 
+    # Host's cut of each paid-hangout transaction is (1 - this). Used by both
+    # routes/earnings.py (per-host payouts) and routes/admin_finance.py (platform
+    # income statement) — single source of truth so the two can't drift apart.
+    PLATFORM_FEE_PCT = 0.20
+
     KYC_API_KEY = os.environ.get("KYC_API_KEY", "")
 
     CORS_ORIGIN = os.environ.get("CORS_ORIGIN", "http://localhost:5173")
@@ -65,3 +70,9 @@ class Config:
     # Status updates — ephemeral text/photo/video posts, same local-disk storage.
     STATUS_UPLOAD_FOLDER = os.environ.get("STATUS_UPLOAD_FOLDER", os.path.join(basedir, "..", "uploads", "status_media"))
     STATUS_EXPIRY_HOURS = 24
+
+    # KYC documents (ID photo + selfie) — highest-sensitivity uploads in this app.
+    # Deliberately NOT served through a public static route like profile photos or
+    # message media are; routes/verification.py gates access to the submitter
+    # themselves or an admin. See that file for why.
+    KYC_UPLOAD_FOLDER = os.environ.get("KYC_UPLOAD_FOLDER", os.path.join(basedir, "..", "uploads", "kyc_documents"))

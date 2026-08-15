@@ -2,11 +2,9 @@ import { useEffect, useState } from 'react'
 import { api } from '../api/client'
 
 /**
- * Scope note: this is deliberately just the credentials form for now — the
- * collections/cashflow/income-statement views discussed alongside this are
- * separate, larger pieces coming next. This tab exists so credentials can be
- * set here first, since the reporting views will read through this same
- * config once they exist.
+ * Just the SasaPay credentials form — Collections, Cashflow, and Income
+ * Statement are sibling tabs in AdminFinance.jsx, all reading through this
+ * same config once it's saved here.
  */
 export default function AdminFinanceSettings() {
   const [settings, setSettings] = useState(null)
@@ -168,11 +166,6 @@ export default function AdminFinanceSettings() {
             </p>
           )}
         </form>
-      </div>
-
-      <div className="report-card" style={{ borderStyle: 'dashed', color: 'var(--slate)', fontSize: 13 }}>
-        Collections, cashflow, and income statement views are coming next — this tab currently
-        only covers credentials.
       </div>
     </div>
   )

@@ -15,6 +15,8 @@ from app.routes.safety import safety_bp
 from app.routes.admin import admin_bp
 from app.routes.ratings import ratings_bp
 from app.routes.finance_settings import finance_settings_bp
+from app.routes.admin_finance import admin_finance_bp
+from app.routes.admin_kyc import admin_kyc_bp
 
 
 def register_blueprints(app):
@@ -38,3 +40,5 @@ def register_blueprints(app):
     app.register_blueprint(admin_bp)
     app.register_blueprint(ratings_bp)
     app.register_blueprint(finance_settings_bp)
+    app.register_blueprint(admin_finance_bp)
+    app.register_blueprint(admin_kyc_bp)

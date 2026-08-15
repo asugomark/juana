@@ -8,6 +8,8 @@ from app.models.report import Report
 from app.models.block import Block
 from app.models.rating import Rating
 from app.models.payment_credential import PaymentCredential
+from app.models.expense import Expense
+from app.models.kyc_submission import KycSubmission
 
 __all__ = [
     "User",
@@ -24,4 +26,6 @@ __all__ = [
     "Block",
     "Rating",
     "PaymentCredential",
+    "Expense",
+    "KycSubmission",
 ]

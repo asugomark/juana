@@ -1,7 +1,8 @@
 import { useEffect, useState, useCallback } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { api, clearToken } from '../api/client'
-import AdminFinanceSettings from './AdminFinanceSettings'
+import AdminFinance from './AdminFinance'
+import AdminKyc from './AdminKyc'
 import './AdminDashboard.css'
 
 /**
@@ -104,6 +105,7 @@ export default function AdminDashboard() {
           <button className={`admin-tab ${tab === 'reports' ? 'active' : ''}`} onClick={() => setTab('reports')}>Reports</button>
           <button className={`admin-tab ${tab === 'users' ? 'active' : ''}`} onClick={() => setTab('users')}>User lookup</button>
           <button className={`admin-tab ${tab === 'finance' ? 'active' : ''}`} onClick={() => setTab('finance')}>Finance</button>
+          <button className={`admin-tab ${tab === 'kyc' ? 'active' : ''}`} onClick={() => setTab('kyc')}>Verification</button>
         </div>
 
         {error && <p style={{ color: 'var(--coral)', marginBottom: 16 }}>{error}</p>}
@@ -205,7 +207,8 @@ export default function AdminDashboard() {
           </>
         )}
 
-        {tab === 'finance' && <AdminFinanceSettings />}
+        {tab === 'finance' && <AdminFinance />}
+        {tab === 'kyc' && <AdminKyc />}
       </main>
     </div>
   )

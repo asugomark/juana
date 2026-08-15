@@ -3,6 +3,7 @@ import { useParams, useNavigate, Link } from 'react-router-dom'
 import { api } from '../api/client'
 import ReportModal from '../components/ReportModal'
 import StarRating from '../components/StarRating'
+import KycGateModal from '../components/KycGateModal'
 import './Profile.css'
 
 const MAX_PHOTOS = 6
@@ -40,6 +41,7 @@ export default function Profile() {
   const [ratingSummary, setRatingSummary] = useState({ average: null, count: 0 })
   const [reviews, setReviews] = useState([])
   const [showReport, setShowReport] = useState(false)
+  const [showKyc, setShowKyc] = useState(false)
 
   const isOwnProfile = me && profile && me.id === profile.id
 
@@ -238,6 +240,21 @@ export default function Profile() {
               </div>
             </div>
 
+            {isOwnProfile && !profile.is_verified && (
+              <p style={{ fontSize: 12, marginTop: 10 }}>
+                {profile.kyc_status === 'pending' ? (
+                  <span style={{ color: 'var(--slate)' }}>Verification submitted — under review.</span>
+                ) : (
+                  <button
+                    onClick={() => setShowKyc(true)}
+                    style={{ background: 'none', border: 'none', color: 'var(--lime)', cursor: 'pointer', padding: 0, fontSize: 12, textDecoration: 'underline' }}
+                  >
+                    Get verified →
+                  </button>
+                )}
+              </p>
+            )}
+
             {isOwnProfile && (
               <>
                 <div className="thumb-strip">
@@ -305,6 +322,15 @@ export default function Profile() {
               reportedUserId={profile.id}
               reportedUserName={profile.display_name}
               onClose={() => setShowReport(false)}
+            />
+          )}
+
+          {showKyc && (
+            <KycGateModal
+              onClose={() => {
+                setShowKyc(false)
+                load() // picks up the new 'pending' kyc_status right away, no manual refresh needed
+              }}
             />
           )}
 

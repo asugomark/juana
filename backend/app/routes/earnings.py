@@ -10,15 +10,11 @@ from app.utils.settings import get_sasapay_config
 
 earnings_bp = Blueprint("earnings", __name__, url_prefix="/api/earnings")
 
-# Host's cut of each transaction attributed to them. Keep configurable — platform fee
-# is a business decision, not something to hardcode deep in route logic.
-PLATFORM_FEE_PCT = 0.20
-
 
 def _summary_for(host_id):
     revenue_txns = Transaction.query.filter_by(host_id=host_id, status="completed").all()
     gross_cents = sum(t.amount_cents for t in revenue_txns)
-    net_cents = int(gross_cents * (1 - PLATFORM_FEE_PCT))
+    net_cents = int(gross_cents * (1 - current_app.config["PLATFORM_FEE_PCT"]))
 
     # Payouts: completed ones are paid out; pending ones are in-flight and should
     # still count against available balance so a host can't double-withdraw while
@@ -69,7 +65,7 @@ def by_hangout():
             "pass_tier": hangout.pass_tier if hangout else None,
             "passes_sold": passes_sold,
             "gross_cents": int(gross_cents),
-            "net_cents": int(gross_cents * (1 - PLATFORM_FEE_PCT)),
+            "net_cents": int(gross_cents * (1 - current_app.config["PLATFORM_FEE_PCT"])),
             "is_live": bool(hangout and (hangout.ends_at is None or hangout.ends_at > datetime.utcnow())),
         })
 
