@@ -1,4 +1,4 @@
-const BASE_URL = '/api'
+const BASE_URL = 'https://juana-jqn5.onrender.com/api'
 
 export function getToken() {
   return localStorage.getItem('juana_token')
