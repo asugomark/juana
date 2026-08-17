@@ -141,6 +141,10 @@ class ProfilePhoto(db.Model):
     id = db.Column(db.String(36), primary_key=True, default=gen_uuid)
     user_id = db.Column(db.String(36), db.ForeignKey("users.id"), nullable=False, index=True)
     url = db.Column(db.String(255), nullable=False)
+    # Set only when stored on Cloudinary (see app/utils/cloud_storage.py) — lets
+    # delete_photo() clean up the actual asset there, not just the DB row. Null
+    # for photos stored on local disk (deletion there just uses the url's filename).
+    cloud_public_id = db.Column(db.String(255), nullable=True)
     position = db.Column(db.Integer, default=0, nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
 

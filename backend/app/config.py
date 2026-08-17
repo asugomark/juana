@@ -9,7 +9,9 @@ class Config:
     JWT_SECRET_KEY = os.environ.get("JWT_SECRET_KEY", "dev-jwt-secret-change-me")
     JWT_ACCESS_TOKEN_EXPIRES = timedelta(days=7)
 
-    SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL")
+    SQLALCHEMY_DATABASE_URI = os.environ.get(
+        "DATABASE_URL", "mysql+pymysql://root:123Enter$@localhost:3306/juana"
+    )
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
     # These SASAPAY_*/PUBLIC_CALLBACK_BASE_URL env vars are now only a BOOTSTRAP
@@ -74,3 +76,13 @@ class Config:
     # message media are; routes/verification.py gates access to the submitter
     # themselves or an admin. See that file for why.
     KYC_UPLOAD_FOLDER = os.environ.get("KYC_UPLOAD_FOLDER", os.path.join(basedir, "..", "uploads", "kyc_documents"))
+
+    # Cloudinary — when these are set, app/utils/cloud_storage.py uploads there
+    # instead of local disk. Local disk (UPLOAD_FOLDER etc above) works fine for
+    # local dev but does NOT survive a Render/Heroku-style redeploy (ephemeral
+    # filesystem) and doesn't work across multiple instances. Leave these blank
+    # locally if you don't want a Cloudinary account for dev — everything falls
+    # back to local disk automatically. Set them for real in production.
+    CLOUDINARY_CLOUD_NAME = os.environ.get("CLOUDINARY_CLOUD_NAME", "")
+    CLOUDINARY_API_KEY = os.environ.get("CLOUDINARY_API_KEY", "")
+    CLOUDINARY_API_SECRET = os.environ.get("CLOUDINARY_API_SECRET", "")

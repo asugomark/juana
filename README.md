@@ -98,8 +98,16 @@ the actual install prompt:
    `/auth/login` and `/passes/purchase`.
 6. **Input validation** is minimal (presence checks only) — add real schema validation
    (marshmallow or pydantic) before production.
-7. **Photo/media upload** — profiles and hangouts reference photos in the mockups but
-   there's no upload endpoint or storage (S3/Cloudinary) here yet.
+7. **Cloud storage is optional, not automatic** — profile photos, message media,
+   status media, and KYC documents all upload to Cloudinary when
+   `CLOUDINARY_CLOUD_NAME`/`CLOUDINARY_API_KEY`/`CLOUDINARY_API_SECRET` are set
+   (see `app/utils/cloud_storage.py`), and fall back to local disk when they're
+   not. **Local disk does not survive a Render/Heroku-style redeploy** (the
+   filesystem is ephemeral — wiped on every deploy) and doesn't work across
+   multiple instances. If you're deployed anywhere like that, set the three
+   Cloudinary env vars for real, or every uploaded photo will vanish on your
+   next deploy. Local dev works fine without a Cloudinary account — it just
+   uses local disk automatically when those vars are blank.
 
 ## Design decisions encoded in the code (so future-you remembers why)
 

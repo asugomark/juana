@@ -23,6 +23,12 @@ class KycSubmission(db.Model):
 
     id_document_url = db.Column(db.String(255), nullable=False)
     selfie_url = db.Column(db.String(255), nullable=False)
+    # Set only when stored on Cloudinary — these are 'authenticated' type assets
+    # (see app/utils/cloud_storage.py), so id_document_url/selfie_url above stay
+    # as our own protected proxy path either way; these columns are what
+    # serve_document() actually uses to fetch from Cloudinary when present.
+    id_document_public_id = db.Column(db.String(255), nullable=True)
+    selfie_public_id = db.Column(db.String(255), nullable=True)
 
     status = db.Column(
         db.Enum("pending", "approved", "rejected", name="kyc_submission_status_enum"),

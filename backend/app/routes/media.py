@@ -8,6 +8,7 @@ from app.models.hangout import HangoutMember
 from app.models.message import Message
 from app.models.block import is_blocked_either_way
 from app.utils.passes import can_user_send_message, consume_newbie_allowance_if_applicable
+from app.utils import cloud_storage
 
 media_bp = Blueprint("media", __name__, url_prefix="/api")
 
@@ -35,12 +36,19 @@ def _classify_and_validate(file):
     return media_type, None
 
 
-def _save_media_file(file, sender_id, ext):
+def _save_media_file(file, sender_id, ext, media_type):
+    """Cloudinary when configured, local disk otherwise. Returns url (public_id
+    isn't tracked here since there's no delete-message feature yet to use it)."""
+    if cloud_storage.is_configured():
+        resource_type = "video" if media_type == "video" else "image"
+        url, _public_id = cloud_storage.upload_public_file(file, folder=f"message_media/{sender_id}", resource_type=resource_type)
+        return url
+
     stored_name = f"{uuid.uuid4()}.{ext}"
     folder = os.path.join(current_app.config["MEDIA_UPLOAD_FOLDER"], sender_id)
     os.makedirs(folder, exist_ok=True)
     file.save(os.path.join(folder, stored_name))
-    return f"/uploads/message_media/{sender_id}/{stored_name}", stored_name
+    return f"/uploads/message_media/{sender_id}/{stored_name}"
 
 
 @media_bp.post("/hangouts/<hangout_id>/messages/media")
@@ -68,7 +76,7 @@ def send_hangout_media(hangout_id):
         return error
 
     ext = file.filename.rsplit(".", 1)[-1].lower()
-    url, _ = _save_media_file(file, user_id, ext)
+    url = _save_media_file(file, user_id, ext, media_type)
 
     msg = Message(
         sender_id=user_id,
@@ -112,7 +120,7 @@ def send_hola_media(other_user_id):
         return error
 
     ext = file.filename.rsplit(".", 1)[-1].lower()
-    url, _ = _save_media_file(file, user_id, ext)
+    url = _save_media_file(file, user_id, ext, media_type)
 
     msg = Message(
         sender_id=user_id,
@@ -130,7 +138,7 @@ def send_hola_media(other_user_id):
     return jsonify(payload), 201
 
 
-# ---------- Static file serving for message media ----------
+# ---------- Static file serving for message media (local-disk fallback only) ----------
 media_uploads_bp = Blueprint("media_uploads", __name__)
 
 

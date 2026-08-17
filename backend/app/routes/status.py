@@ -8,6 +8,7 @@ from app.models.user import User
 from app.models.hangout import HangoutMember
 from app.models.message import Message
 from app.models.status import Status
+from app.utils import cloud_storage
 
 status_bp = Blueprint("status", __name__, url_prefix="/api/status")
 
@@ -39,6 +40,20 @@ def _known_user_ids(viewer_id):
         }
 
     return (hola_partners | hangout_co_members) - {viewer_id}
+
+
+def _save_status_media(file, user_id, ext, kind):
+    """Cloudinary when configured, local disk otherwise. Returns (url, cloud_public_id)."""
+    if cloud_storage.is_configured():
+        resource_type = "video" if kind == "video" else "image"
+        url, public_id = cloud_storage.upload_public_file(file, folder=f"status_media/{user_id}", resource_type=resource_type)
+        return url, public_id
+
+    stored_name = f"{uuid.uuid4()}.{ext}"
+    folder = os.path.join(current_app.config["STATUS_UPLOAD_FOLDER"], user_id)
+    os.makedirs(folder, exist_ok=True)
+    file.save(os.path.join(folder, stored_name))
+    return f"/uploads/status_media/{user_id}/{stored_name}", None
 
 
 @status_bp.post("")
@@ -74,15 +89,13 @@ def create_status():
         if size > max_bytes:
             return jsonify({"error": f"file too large — max {max_bytes // (1024*1024)}MB for {kind}"}), 400
 
-        stored_name = f"{uuid.uuid4()}.{ext}"
-        folder = os.path.join(current_app.config["STATUS_UPLOAD_FOLDER"], user_id)
-        os.makedirs(folder, exist_ok=True)
-        file.save(os.path.join(folder, stored_name))
+        url, cloud_public_id = _save_status_media(file, user_id, ext, kind)
 
         status = Status(
             user_id=user_id,
             kind=kind,
-            media_url=f"/uploads/status_media/{user_id}/{stored_name}",
+            media_url=url,
+            cloud_public_id=cloud_public_id,
             text_content=(request.form.get("caption") or "").strip() or None,
             expires_at=expires_at,
         )
@@ -144,16 +157,20 @@ def delete_status(status_id):
     status = Status.query.filter_by(id=status_id, user_id=user_id).first_or_404()
 
     if status.media_url:
-        file_path = os.path.join(current_app.config["STATUS_UPLOAD_FOLDER"], user_id, os.path.basename(status.media_url))
-        if os.path.exists(file_path):
-            os.remove(file_path)
+        if status.cloud_public_id:
+            resource_type = "video" if status.kind == "video" else "image"
+            cloud_storage.delete_file(status.cloud_public_id, resource_type=resource_type)
+        else:
+            file_path = os.path.join(current_app.config["STATUS_UPLOAD_FOLDER"], user_id, os.path.basename(status.media_url))
+            if os.path.exists(file_path):
+                os.remove(file_path)
 
     db.session.delete(status)
     db.session.commit()
     return jsonify({"status": "deleted"})
 
 
-# ---------- Static file serving ----------
+# ---------- Static file serving (local-disk fallback only) ----------
 status_uploads_bp = Blueprint("status_uploads", __name__)
 
 

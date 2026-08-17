@@ -9,6 +9,4 @@ cryptography==43.0.0
 python-dotenv==1.0.1
 requests==2.32.3
 bcrypt==4.2.0
-gunicorn==23.0.0
-gevent==25.8.2
-gevent-websocket==0.10.1
+cloudinary==1.41.0

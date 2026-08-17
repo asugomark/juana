@@ -24,6 +24,9 @@ class Status(db.Model):
     kind = db.Column(db.Enum("text", "image", "video", name="status_kind_enum"), nullable=False)
     text_content = db.Column(db.Text, nullable=True)  # the post body for kind='text', or a caption otherwise
     media_url = db.Column(db.String(255), nullable=True)  # set for kind='image'/'video'
+    # Set only when stored on Cloudinary — see ProfilePhoto.cloud_public_id for
+    # the same reasoning (clean deletion of the actual asset, not just the row).
+    cloud_public_id = db.Column(db.String(255), nullable=True)
 
     created_at = db.Column(db.DateTime, default=datetime.utcnow, nullable=False, index=True)
     expires_at = db.Column(db.DateTime, nullable=False, index=True)  # always set explicitly in routes/status.py from config.STATUS_EXPIRY_HOURS
