@@ -13,4 +13,4 @@ cloudinary==1.41.0
 gunicorn
 gevent-websocket
 packaging
-gevent
+
