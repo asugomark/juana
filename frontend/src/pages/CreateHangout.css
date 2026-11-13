@@ -28,7 +28,7 @@
   input::placeholder, textarea::placeholder{color:var(--slate);}
 
   /* TOPBAR */
-  .topbar{
+  .create-topbar{
     display:flex; justify-content:space-between; align-items:center; padding:18px 32px;
     border-bottom:1px solid var(--line); background:var(--surface);
   }

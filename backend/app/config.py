@@ -1,5 +1,6 @@
 import os
 from datetime import timedelta
+from decimal import Decimal
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
@@ -10,7 +11,7 @@ class Config:
     JWT_ACCESS_TOKEN_EXPIRES = timedelta(days=7)
 
     SQLALCHEMY_DATABASE_URI = os.environ.get(
-        "DATABASE_URL", "mysql+pymysql://root:123Enter$@localhost:3306/juana"
+        "DATABASE_URL", "mysql+pymysql://root:password@localhost:3306/juana"
     )
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
@@ -32,7 +33,7 @@ class Config:
     # Host's cut of each paid-hangout transaction is (1 - this). Used by both
     # routes/earnings.py (per-host payouts) and routes/admin_finance.py (platform
     # income statement) — single source of truth so the two can't drift apart.
-    PLATFORM_FEE_PCT = 0.20
+    PLATFORM_FEE_PCT = Decimal("0.15")  # instead of 0.15 (float)
 
     KYC_API_KEY = os.environ.get("KYC_API_KEY", "")
 
@@ -45,7 +46,15 @@ class Config:
         "week": 15000,   # KES 150.00
         "month": 35000,  # KES 350.00
     }
-    NEWBIE_FREE_MESSAGES = 10  # first-time user allowance before any pass is required
+    # Paid hangouts: the HOST sets the entry price (not a fixed tier). Joining also includes a
+    # messaging pass of this length so someone who paid to get in can actually chat. The host's
+    # share of every entry fee is (1 - PLATFORM_FEE_PCT). The floor equals a day pass so the
+    # included pass is never worth more than the fee; the cap limits abuse.
+    HANGOUT_MIN_ENTRY_CENTS = 00    # KES 0
+    HANGOUT_MAX_ENTRY_CENTS = 5000000   # KES 50000
+    HANGOUT_INCLUDED_PASS = "day"
+
+    NEWBIE_FREE_MESSAGES = 50  # first-time user allowance before any pass is required
 
     # Photo uploads -- stored on local disk under backend/uploads/, served back via
     # the /uploads/<path> static route in app/__init__.py. This works fine for local

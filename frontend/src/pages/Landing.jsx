@@ -9,7 +9,7 @@ import './Landing.css'
 export default function Landing() {
   return (
     <>
-      <nav>
+      <nav className="landing-nav">
         <div className="wrap">
           <div className="logo"><span className="logo-dot"></span>Juana</div>
           <div className="nav-links">

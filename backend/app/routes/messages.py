@@ -5,7 +5,7 @@ from app.models.user import User
 from app.models.hangout import Hangout, HangoutMember
 from app.models.message import Message
 from app.models.block import is_blocked_either_way
-from app.utils.passes import can_user_send_message, consume_newbie_allowance_if_applicable
+from app.utils.passes import can_user_send_message, consume_newbie_allowance_if_applicable, pass_required_payload
 
 messages_bp = Blueprint("messages", __name__, url_prefix="/api")
 
@@ -43,9 +43,12 @@ def send_hangout_message(hangout_id):
     if not _require_active_member(hangout_id, user_id):
         return jsonify({"error": "not a member of this hangout"}), 403
 
+    if Hangout.query.get_or_404(hangout_id).status() == "ended":
+        return jsonify({"error": "hangout_ended", "message": "This hangout has ended — the chat is closed."}), 410
+
     # Hard gate — no grace period, matches the "no soft warning" rule from the design.
     if not can_user_send_message(user):
-        return jsonify({"error": "pass_required", "message": "Get a pass to send messages"}), 402
+        return jsonify(pass_required_payload(user.id)), 402
 
     body = (request.get_json() or {}).get("body", "").strip()
     if not body:
@@ -97,7 +100,7 @@ def send_hola_message(other_user_id):
         return jsonify({"error": "unable to send message"}), 403
 
     if not can_user_send_message(user):
-        return jsonify({"error": "pass_required", "message": "Get a pass to send messages"}), 402
+        return jsonify(pass_required_payload(user.id)), 402
 
     body = (request.get_json() or {}).get("body", "").strip()
     if not body:

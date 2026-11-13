@@ -4,6 +4,7 @@ import { api } from '../api/client'
 import ReportModal from '../components/ReportModal'
 import StarRating from '../components/StarRating'
 import KycGateModal from '../components/KycGateModal'
+import Sidebar from '../components/Sidebar'
 import './Profile.css'
 
 const MAX_PHOTOS = 6
@@ -204,9 +205,10 @@ export default function Profile() {
 
   return (
     <>
-      <div className="topbar">
+      {isOwnProfile && <Sidebar active="profile" me={me} mobileOnly hideTopbar />}
+      <div className="profile-topbar">
         <button className="back-btn" aria-label="Back" onClick={() => navigate(-1)}>←</button>
-        <div className="topbar-actions">
+        <div className="profile-topbar-actions">
           {!isOwnProfile && <button className="icon-btn" aria-label="Report" onClick={() => setShowReport(true)}>⚑</button>}
           <button className="icon-btn" aria-label="More options">⋯</button>
         </div>
@@ -224,7 +226,7 @@ export default function Profile() {
       )}
 
       <div className="page">
-        <div className="layout">
+        <div className="profile-layout">
 
           <div className="photo-col">
             <div className="photo-main">

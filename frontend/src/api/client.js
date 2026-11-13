@@ -132,6 +132,9 @@ export const api = {
     return request(`/hangouts/nearby?${qs}`)
   },
   getHangout: (id) => request(`/hangouts/${id}`),
+  pastHangouts: () => request('/hangouts/past'),
+  joinStatus: (id) => request(`/hangouts/${id}/join-status`),
+  hangoutPricing: () => request('/hangouts/pricing'),
   hangoutPreview: (id) => request(`/hangouts/${id}/preview`, { auth: false }),
   createHangout: (data) => request('/hangouts', { method: 'POST', body: data }),
   // phoneNumber only needed when joining a PAID hangout. invitedBy is the

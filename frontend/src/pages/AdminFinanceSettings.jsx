@@ -146,6 +146,20 @@ export default function AdminFinanceSettings() {
               onChange={(e) => setForm({ ...form, callback_base_url: e.target.value })}
               style={{ width: '100%', background: 'var(--surface-2)', border: '1px solid var(--line)', borderRadius: 10, padding: 12, color: 'var(--paper)', fontSize: 13 }}
             />
+            {(() => {
+              // The #1 reason a payment sits "pending" forever: SasaPay can't reach this address.
+              const base = (form.callback_base_url || '').trim().replace(/\/+$/, '')
+              if (!base) return null
+              const local = /localhost|127\.0\.0\.1/.test(base)
+              const tunnel = /ngrok|loca\.lt|trycloudflare/.test(base)
+              return (
+                <p style={{ fontSize: 11, marginTop: 8, lineHeight: 1.6, color: local ? 'var(--coral)' : 'var(--slate)' }}>
+                  SasaPay will confirm payments at <code>{base}/api/webhooks/sasapay/collection</code>
+                  {local && ' — SasaPay cannot reach localhost, so every payment will stay pending forever.'}
+                  {tunnel && ' — this is a temporary tunnel address. It changes whenever the tunnel restarts, and payments stay pending until you update it here.'}
+                </p>
+              )
+            })()}
           </div>
 
           {saved && <p style={{ color: 'var(--lime)', fontSize: 12, marginBottom: 12 }}>✓ Saved</p>}

@@ -63,10 +63,11 @@ def by_hangout():
             "title": hangout.title if hangout else "Deleted hangout",
             "icon": hangout.icon if hangout else "●",
             "pass_tier": hangout.pass_tier if hangout else None,
+            "price_cents": hangout.price_cents() if hangout else None,
             "passes_sold": passes_sold,
             "gross_cents": int(gross_cents),
             "net_cents": int(gross_cents * (1 - current_app.config["PLATFORM_FEE_PCT"])),
-            "is_live": bool(hangout and (hangout.ends_at is None or hangout.ends_at > datetime.utcnow())),
+            "is_live": bool(hangout and hangout.status() != "ended"),
         })
 
     results.sort(key=lambda r: r["net_cents"], reverse=True)

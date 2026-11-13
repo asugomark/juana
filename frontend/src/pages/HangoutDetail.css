@@ -151,7 +151,8 @@
   .safety-strip a{color:var(--lime); text-decoration:underline;}
 
   @media (max-width:900px){
-    .screen{grid-template-columns:1fr;}
+    .screen{grid-template-columns:minmax(0,1fr);}
+    .chat-col{min-width:0;}
     .side-rail{display:none;}
   }
 
@@ -219,3 +220,51 @@
     line-height:1.6;
   }
   .modal-fine a{color:var(--lime); text-decoration:underline;}
+
+  /* ===== PHONES: the members/details rail opens as a sheet =====
+     At <=900px the rail used to be display:none, which made members, rating,
+     reporting and invite info unreachable on a phone. It now opens from the
+     (i) button in the header. z-index sits just under the tab bar (50) so the
+     tabs stay tappable while the sheet is open. */
+  .rail-toggle, .rail-close{ display:none; }
+  @media (max-width:900px){
+    .rail-toggle{
+      display:flex; align-items:center; justify-content:center;
+      width:34px; height:34px; border-radius:50%; border:none;
+      background:var(--surface-2); color:var(--slate); flex-shrink:0;
+    }
+    .side-rail.open{
+      display:block; position:fixed; inset:0; z-index:45; overflow-y:auto;
+      background:var(--ink);
+      padding:calc(14px + env(safe-area-inset-top)) 20px calc(var(--mnav-h, 62px) + env(safe-area-inset-bottom) + 24px);
+    }
+    .rail-close{
+      display:inline-flex; align-items:center; gap:6px; margin-bottom:14px;
+      background:var(--surface-2); color:var(--paper); border:none; border-radius:100px;
+      padding:9px 16px; font-size:12px; font-weight:600;
+    }
+  }
+  @media (max-width:600px){
+    .who-stack{ display:none; }  /* member avatars live in the sheet; frees header room */
+  }
+
+  /* compact chat header on phones: it used to be wider than the screen, wrapping the
+     title one word per line and clipping Leave/send off the right edge */
+  @media (max-width:600px){
+    .header{ gap:10px; padding:12px 14px; }
+    .thumb-lg{ display:none; }
+    .live-badge:not(.ended):not(.upcoming){ display:none; }  /* keep ENDED / UPCOMING visible on phones */
+    .header-info h1{ font-size:15px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+    .header-info .title-row{ min-width:0; }
+    .header-info .sub{ white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .header-actions{ gap:6px; flex-shrink:0; }
+    .leave-btn{ padding:7px 12px; font-size:12px; }
+  }
+
+  /* ended / upcoming states */
+  .live-badge.ended{ background:var(--surface-3); color:var(--slate); }
+  .live-badge.upcoming{ background:rgba(198,241,53,0.12); color:var(--lime); }
+  .ended-bar{
+    text-align:center; padding:16px 18px; font-size:13px; line-height:1.5; color:var(--slate);
+    background:var(--surface); border:1px solid var(--line); border-radius:14px;
+  }

@@ -2,9 +2,10 @@ from flask import Blueprint, request, jsonify, current_app
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from app.extensions import db
 from app.models.pass_model import Transaction
-from app.utils.passes import has_active_pass, PASS_DURATIONS
+from app.utils.passes import has_active_pass, upcoming_pass_start, PASS_DURATIONS
 from app.utils.sasapay_client import request_collection, process_wallet_otp, SasaPayError
 from app.utils.settings import get_sasapay_config
+from app.utils.phone import normalize_msisdn
 
 passes_bp = Blueprint("passes", __name__, url_prefix="/api/passes")
 
@@ -18,7 +19,11 @@ def pricing():
 @jwt_required()
 def status():
     user_id = get_jwt_identity()
-    return jsonify({"has_active_pass": has_active_pass(user_id)})
+    start = upcoming_pass_start(user_id)
+    return jsonify({
+        "has_active_pass": has_active_pass(user_id),
+        "upcoming_pass_starts_at": start.isoformat() + "Z" if start else None,
+    })
 
 
 @passes_bp.post("/purchase")
@@ -36,13 +41,13 @@ def purchase():
     data = request.get_json() or {}
 
     tier = data.get("tier")
-    phone_number = data.get("phone_number")  # e.g. "254712345678"
+    phone_number = normalize_msisdn(data.get("phone_number"))  # 0712..., +254712... -> 254712...
     network_code = data.get("network_code", "63902")  # default to M-Pesa; "0" = SasaPay wallet
 
     if tier not in PASS_DURATIONS:
         return jsonify({"error": "tier must be day, week, or month"}), 400
     if not phone_number:
-        return jsonify({"error": "phone_number is required"}), 400
+        return jsonify({"error": "invalid_phone", "message": "Enter a Safaricom number like 0712 345 678"}), 400
 
     price_cents = current_app.config["PASS_PRICES"][tier]
     amount = price_cents / 100  # SasaPay amounts are decimal KES, not cents

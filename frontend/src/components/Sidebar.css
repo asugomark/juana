@@ -1,0 +1,199 @@
+/* Mobile navigation + a few platform-level mobile safeguards.
+   Desktop sidebar styles (.sidebar, .nav-item, ...) live in Dashboard.css.
+   Everything mobile here is hidden by default and only switches on at the
+   same 1000px breakpoint where the desktop sidebar disappears.
+
+   Page stylesheets are global once bundled, so where a page already sets the
+   same property (.main padding, .app columns, .screen height) these rules use
+   `body` for extra specificity instead of relying on load order or !important. */
+
+:root{ --mnav-h: 64px; --mtop-h: 64px; }  /* --mnav-h is the MEASURED tab bar height */
+
+/* ---------- platform-level mobile safeguards ---------- */
+html{ -webkit-text-size-adjust:100%; }
+a, button{ -webkit-tap-highlight-color:transparent; }
+button{ touch-action:manipulation; }
+@media (max-width:1000px){
+  /* installed-PWA: stop an accidental pull-down from reloading the whole app */
+  html, body{ overscroll-behavior-y:contain; }
+}
+@media (max-width:760px){
+  /* iOS zooms the page when focusing any field under 16px — never what we want */
+  input, textarea, select{ font-size:16px !important; }
+}
+
+/* ---------- top bar ---------- */
+.mobile-topbar{
+  display:none;
+  position:fixed; top:0; left:0; right:0; z-index:40;
+  box-sizing:border-box;
+  height:calc(var(--mtop-h) + env(safe-area-inset-top));
+  align-items:center; justify-content:space-between;
+  padding:env(safe-area-inset-top) 16px 0;
+  background:rgba(18,20,28,0.88);
+  -webkit-backdrop-filter:blur(12px); backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--line);
+}
+.mobile-topbar .logo{ font-size:17px; padding:0; margin:0; }  /* global .logo carries sidebar spacing */
+.mobile-topbar-right{ display:flex; align-items:center; gap:8px; }
+.mobile-icon-btn{
+  position:relative; width:38px; height:38px; border-radius:50%;
+  background:var(--surface-2); color:var(--paper); border:none;
+  display:flex; align-items:center; justify-content:center; text-decoration:none;
+  transition:transform .12s ease;
+}
+.mobile-icon-btn:active{ transform:scale(.9); }
+.mobile-dot{
+  position:absolute; top:7px; right:8px; width:8px; height:8px; border-radius:50%;
+  background:var(--coral); border:1.5px solid var(--ink);
+}
+.mobile-icon-badge{
+  position:absolute; top:-3px; right:-3px; background:var(--coral); color:var(--ink);
+  font-size:9px; font-weight:700; min-width:16px; height:16px; border-radius:100px;
+  display:flex; align-items:center; justify-content:center; padding:0 4px;
+  border:1.5px solid var(--ink);
+}
+.mobile-avatar{ width:34px; height:34px; }
+
+/* ---------- drawer ---------- */
+.mobile-drawer-backdrop{
+  display:none; position:fixed; inset:0; background:rgba(0,0,0,0.55);
+  z-index:60; opacity:0; pointer-events:none; transition:opacity .2s ease;
+}
+.mobile-drawer-backdrop.open{ opacity:1; pointer-events:auto; }
+
+.mobile-drawer{
+  display:none; flex-direction:column;
+  position:fixed; top:0; bottom:0; left:0; width:80%; max-width:310px; z-index:61;
+  background:var(--surface); border-right:1px solid var(--line);
+  padding:20px 18px;
+  padding-top:calc(20px + env(safe-area-inset-top));
+  padding-bottom:calc(18px + env(safe-area-inset-bottom));
+  overflow-y:auto;
+  transform:translateX(-102%); visibility:hidden;
+  transition:transform .26s cubic-bezier(.4,0,.2,1), visibility 0s linear .26s;
+}
+.mobile-drawer.open{ transform:translateX(0); visibility:visible; transition-delay:0s; }
+.drawer-close{
+  position:absolute; top:calc(14px + env(safe-area-inset-top)); right:14px;
+  width:32px; height:32px; border-radius:50%; border:none;
+  background:var(--surface-2); color:var(--slate);
+  display:flex; align-items:center; justify-content:center;
+}
+.drawer-profile{ margin:18px 0 14px; }
+
+.drawer-location-row{
+  display:flex; justify-content:space-between; align-items:center; gap:12px;
+  background:var(--surface-2); border-radius:14px; padding:14px 16px; margin-bottom:16px;
+}
+.drawer-location-label{ font-size:13px; font-weight:600; }
+.drawer-location-sub{ font-size:11px; color:var(--slate); margin-top:2px; font-family:'Space Mono', monospace; }
+.drawer-switch{
+  position:relative; flex-shrink:0; width:46px; height:28px; border-radius:100px; border:none;
+  background:var(--surface-3); transition:background .2s ease;
+}
+.drawer-switch span{
+  position:absolute; top:3px; left:3px; width:22px; height:22px; border-radius:50%;
+  background:var(--paper); transition:transform .2s ease, background .2s ease;
+}
+.drawer-switch.on{ background:var(--lime); }
+.drawer-switch.on span{ transform:translateX(18px); background:var(--ink); }
+.drawer-switch:disabled{ opacity:.6; }
+
+.drawer-links{ display:flex; flex-direction:column; gap:4px; }
+.drawer-link{
+  display:flex; align-items:center; gap:12px; padding:13px 12px; border-radius:12px;
+  color:var(--paper); text-decoration:none; font-size:14px; font-weight:500;
+}
+.drawer-link.active{ background:var(--surface-2); color:var(--lime); }
+.drawer-link.danger{ color:var(--coral); }
+.drawer-spacer{ flex:1; min-height:20px; }
+.drawer-install-btn{
+  display:flex; align-items:center; justify-content:center; gap:8px; width:100%;
+  background:var(--lime); color:var(--ink); border:none; font-weight:700; font-size:13px;
+  padding:13px; border-radius:100px; margin-bottom:8px;
+}
+.drawer-logout{
+  background:none; border:none; color:var(--slate); text-align:left;
+  font-size:12px; font-family:'Space Mono', monospace; padding:10px 12px;
+}
+
+/* ---------- bottom tab bar ---------- */
+.mobile-bottom-nav{
+  display:none;
+  position:fixed; left:0; right:0; bottom:0; z-index:50;
+  background:rgba(28,31,43,0.94);
+  -webkit-backdrop-filter:blur(16px); backdrop-filter:blur(16px);
+  border-top:1px solid var(--line);
+  padding:6px 4px calc(6px + env(safe-area-inset-bottom));
+  transition:transform .2s ease;
+}
+.mobile-bottom-nav-inner{
+  display:grid; grid-template-columns:repeat(5, 1fr); max-width:560px; margin:0 auto;
+}
+.mobile-tab{
+  display:flex; flex-direction:column; align-items:center; gap:2px;
+  min-height:48px; padding:6px 2px; border-radius:14px;
+  color:var(--slate); text-decoration:none; transition:color .15s ease;
+}
+.mobile-tab-icon{ position:relative; display:flex; transition:transform .15s ease; }
+.mobile-tab .lbl{ font-size:10px; font-weight:500; font-family:'Inter', sans-serif; }
+.mobile-tab.active{ color:var(--lime); }
+.mobile-tab.active .mobile-tab-icon{ transform:translateY(-1px); }
+.mobile-tab:active .mobile-tab-icon{ transform:scale(.86); }
+.tab-badge{
+  position:absolute; top:-4px; right:-9px; background:var(--coral); color:var(--ink);
+  font-size:9px; font-weight:700; min-width:16px; height:16px; border-radius:100px;
+  display:flex; align-items:center; justify-content:center; padding:0 4px;
+  border:1.5px solid var(--surface);
+}
+
+/* ---------- the switch to mobile ---------- */
+@media (max-width:1000px){
+  /* the top bar is position:fixed, so reserve its height here instead of letting
+     it be a grid row (min-height:100vh made the grid stretch that row on short pages) */
+  /* minmax(0,1fr): a bare 1fr can't shrink below its content's min-width, so one wide child
+     (a row of avatars, a pill) widened the whole page past the screen at 360px */
+  body .app{ grid-template-columns:minmax(0,1fr); padding-top:calc(var(--mtop-h) + env(safe-area-inset-top)); }
+  body .main{ min-width:0; }
+  /* same shrink rule for the dashboard's inner column grid (already 1 column at this width) */
+  body .grid{ grid-template-columns:minmax(0,1fr); }
+  .col-main, .col-side{ min-width:0; }
+  .app > .sidebar{ display:none; }
+
+  .mobile-topbar{ display:flex; }
+  .mobile-drawer{ display:flex; }
+  .mobile-drawer-backdrop{ display:block; }
+  .mobile-bottom-nav{ display:block; }
+
+  /* keep the last bit of every page clear of the fixed tab bar */
+  body .main{ padding-bottom:calc(var(--mnav-h) + env(safe-area-inset-bottom) + 20px); }
+  body .page{ padding-bottom:calc(var(--mnav-h) + env(safe-area-inset-bottom) + 24px); }
+
+  /* chat screens: 100vh includes the browser toolbar on phones (composer ends up
+     underneath it) — dvh is the visible height. Also leave room for the tab bar. */
+  .screen{
+    height:100vh; height:100dvh;
+    padding-bottom:calc(var(--mnav-h) + env(safe-area-inset-bottom));
+  }
+  /* the "get a pass" bar is fixed to the bottom — sit it above the tab bar */
+  /* `body` for specificity: the page's own .locked-composer{bottom:0} loads later and used to win,
+     leaving the Get-a-pass button hidden under the tab bar */
+  body .locked-composer{ bottom:calc(var(--mnav-h) + env(safe-area-inset-bottom)); }
+
+  /* pages with their own header: keep it clear of the notch / status bar when installed */
+  body .profile-topbar{ padding-top:calc(14px + env(safe-area-inset-top)); }
+  .chat-col > .header{ padding-top:calc(14px + env(safe-area-inset-top)); }
+
+  /* keyboard open: the tab bar slides away, so give the space back */
+  .kbd-open .mobile-bottom-nav{ transform:translateY(115%); }
+  .kbd-open .screen{ padding-bottom:0; }
+  .kbd-open .locked-composer{ bottom:0; }
+}
+
+/* modals and sheets must sit above the tab bar */
+body .overlay{ z-index:100; }
+
+@media (min-width:1001px){
+  .mobile-drawer, .mobile-drawer-backdrop, .mobile-topbar, .mobile-bottom-nav{ display:none !important; }
+}

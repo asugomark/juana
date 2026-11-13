@@ -1,6 +1,7 @@
 import { useEffect, useState, useCallback } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { api, clearToken } from '../api/client'
+import { formatKes } from '../utils/price'
 import Sidebar from '../components/Sidebar'
 import StatusBar from '../components/StatusBar'
 import { photoStyle } from '../utils/avatar'
@@ -62,7 +63,12 @@ export default function Dashboard() {
     }
   }, [navigate])
 
-  useEffect(() => { loadAll() }, [loadAll])
+  useEffect(() => {
+    loadAll()
+    // an ended hangout should drop off this list on its own
+    const t = setInterval(loadAll, 60000)
+    return () => clearInterval(t)
+  }, [loadAll])
 
   async function handleJoin(hangout) {
     if (hangout.is_paid) {
@@ -161,7 +167,7 @@ export default function Dashboard() {
                     </Link>
                     <div className="meta">
                       {h.distance_mi != null ? `${h.distance_mi} MI · ` : ''}
-                      {h.member_count}/{h.capacity} HERE{h.is_paid ? ` · ${h.pass_tier.toUpperCase()} PASS` : ''}
+                      {h.member_count}/{h.capacity} HERE{h.is_paid ? ` · ${formatKes(h.price_cents).toUpperCase()}` : ''}
                     </div>
                     <div className="stack">
                       {Array.from({ length: Math.min(h.member_count, 4) }).map((_, i) => <span key={i}></span>)}

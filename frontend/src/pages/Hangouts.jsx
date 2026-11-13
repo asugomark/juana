@@ -1,13 +1,23 @@
 import { useEffect, useState, useCallback } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { api, clearToken } from '../api/client'
+import { formatKes } from '../utils/price'
 import Sidebar from '../components/Sidebar'
 import './Dashboard.css'
+
+// "3h ago" / "2d ago" — server times are UTC with a Z, so this is correct in any timezone
+function endedAgo(iso) {
+  const mins = Math.max(0, Math.round((Date.now() - new Date(iso)) / 60000))
+  if (mins < 60) return `${mins}m ago`
+  if (mins < 60 * 24) return `${Math.round(mins / 60)}h ago`
+  return `${Math.round(mins / 1440)}d ago`
+}
 
 export default function Hangouts() {
   const navigate = useNavigate()
   const [me, setMe] = useState(null)
   const [hangouts, setHangouts] = useState([])
+  const [past, setPast] = useState([])
   const [error, setError] = useState(null)
 
   const load = useCallback(async () => {
@@ -20,6 +30,7 @@ export default function Hangouts() {
         ? { lat: meData.current_lat, lng: meData.current_lng }
         : {}
       setHangouts(await api.nearbyHangouts(params))
+      api.pastHangouts().then(setPast).catch(() => setPast([]))
     } catch (err) {
       if (err.status === 401) {
         clearToken()
@@ -30,7 +41,13 @@ export default function Hangouts() {
     }
   }, [navigate])
 
-  useEffect(() => { load() }, [load])
+  useEffect(() => {
+    load()
+    // Hangouts end by the clock — refetch every minute so one disappears from this list
+    // without a manual refresh.
+    const t = setInterval(load, 60000)
+    return () => clearInterval(t)
+  }, [load])
 
   async function handleJoin(hangout) {
     if (hangout.is_paid) {
@@ -60,7 +77,7 @@ export default function Hangouts() {
           </Link>
           <div className="meta">
             {h.distance_mi != null ? `${h.distance_mi} MI · ` : ''}
-            {h.member_count}/{h.capacity} HERE{h.is_paid ? ` · ${h.pass_tier.toUpperCase()} PASS` : ''}
+            {h.member_count}/{h.capacity} HERE{h.is_paid ? ` · ${formatKes(h.price_cents).toUpperCase()}` : ''}
           </div>
           {showMatch && h.matched_interests.length > 0 && (
             <div style={{ marginTop: 6, display: 'flex', gap: 6, flexWrap: 'wrap' }}>
@@ -118,6 +135,29 @@ export default function Hangouts() {
           )}
           {rest.map((h) => <HangoutRow h={h} key={h.id} />)}
         </div>
+
+        {past.length > 0 && (
+          <div className="panel" style={{ marginTop: 24 }}>
+            <div className="panel-head">
+              <h2>Your past hangouts</h2>
+              <span className="see-all">ENDED</span>
+            </div>
+            {past.map((h) => (
+              <div className="hangout-card" key={h.id}>
+                <div className="hangout-thumb">{h.icon}</div>
+                <div className="hangout-info">
+                  <Link to={`/hangouts/${h.id}`} style={{ color: 'inherit' }}>
+                    <div className="title">{h.title}</div>
+                  </Link>
+                  <div className="meta">ENDED {endedAgo(h.effective_ends_at)} · {h.member_count} WENT</div>
+                </div>
+                <Link to={`/hangouts/${h.id}`} className="join-btn" style={{ background: 'var(--surface-3)', color: 'var(--paper)' }}>
+                  Open
+                </Link>
+              </div>
+            ))}
+          </div>
+        )}
 
         {!me.interests?.length && (
           <p style={{ color: 'var(--slate)', fontSize: 12, marginTop: 16 }}>

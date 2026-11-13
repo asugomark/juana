@@ -5,6 +5,7 @@ import { connectSocket } from '../api/socket'
 import PaygateModal from '../components/PaygateModal'
 import MediaAttachButton from '../components/MediaAttachButton'
 import MessageBubble from '../components/MessageBubble'
+import Sidebar from '../components/Sidebar'
 import { photoStyle } from '../utils/avatar'
 import './HangoutDetail.css' // reuses the same .header/.messages/.msg/.bubble/.composer/.locked-composer styles
 
@@ -16,6 +17,7 @@ export default function HolaThread() {
   const [messages, setMessages] = useState([])
   const [draft, setDraft] = useState('')
   const [locked, setLocked] = useState(false)
+  const [passStartsAt, setPassStartsAt] = useState(null)
   const [showPaygate, setShowPaygate] = useState(false)
   const [error, setError] = useState(null)
   const socketRef = useRef(null)
@@ -72,6 +74,7 @@ export default function HolaThread() {
     } catch (err) {
       if (err.status === 402) {
         setLocked(true)
+        setPassStartsAt(err.payload?.pass_starts_at || null)
       } else {
         setError(err.message)
       }
@@ -89,6 +92,7 @@ export default function HolaThread() {
     } catch (err) {
       if (err.status === 402) {
         setLocked(true)
+        setPassStartsAt(err.payload?.pass_starts_at || null)
       } else {
         setError(err.message)
       }
@@ -98,7 +102,9 @@ export default function HolaThread() {
   if (!otherUser || !me) return <div style={{ padding: 40 }}>Loading…</div>
 
   return (
-    <div className="screen" style={{ gridTemplateColumns: '1fr' }}>
+    <>
+    <Sidebar active="hola" me={me} mobileOnly hideTopbar />
+    <div className="screen" style={{ gridTemplateColumns: 'minmax(0, 1fr)' }}>
       <div className="chat-col">
         <header className="header">
           <Link to="/hola" className="back-btn" aria-label="Back to inbox">←</Link>
@@ -145,8 +151,12 @@ export default function HolaThread() {
           <div className="locked-composer" style={{ position: 'static' }}>
             <div className="locked-inner">
               <span className="lock-ic">🔒</span>
-              <span className="txt">Your pass has ended — you can still read, but not send</span>
-              <button className="cta" onClick={() => setShowPaygate(true)}>Get a pass</button>
+              <span className="txt">
+              {passStartsAt
+                ? `Your pass starts ${new Date(passStartsAt).toLocaleString([], { weekday: 'short', hour: 'numeric', minute: '2-digit' })}`
+                : 'Your pass has ended — you can still read, but not send'}
+            </span>
+              <button className="cta" onClick={() => setShowPaygate(true)}>{passStartsAt ? 'Get a pass now' : 'Get a pass'}</button>
             </div>
           </div>
         ) : (
@@ -175,5 +185,6 @@ export default function HolaThread() {
         />
       )}
     </div>
+    </>
   )
 }

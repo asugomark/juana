@@ -24,13 +24,18 @@ export default function CreateHangout() {
     description: '',
     when: 'now', // 'now' | 'schedule'
     scheduledFor: '',
+    duration: 180, // minutes — the hangout disappears from Nearby on its own when this is up
     visibility: 'open',
     capacity: 8,
     requiresApproval: false,
     verifiedOnly: true,
-    passTier: '', // '' = free
+    verifiedTouched: false, // once the host flips the toggle themselves, we stop changing it for them
+    paid: false,
+    priceKes: 200, // what the HOST charges to join; Juana's fee comes off the top
   })
   const [locating, setLocating] = useState(false)
+  const [pricing, setPricing] = useState(null) // limits + host share come from the server, not hard-coded here
+  useEffect(() => { api.hangoutPricing().then(setPricing).catch(() => {}) }, [])
   const [error, setError] = useState(null)
   const [submitting, setSubmitting] = useState(false)
   const [me, setMe] = useState(null)
@@ -65,6 +70,15 @@ export default function CreateHangout() {
       setError('Give it a name.')
       return
     }
+    if (form.paid) {
+      const cents = Math.round(Number(form.priceKes) * 100)
+      const lo = pricing?.min_entry_cents ?? 5000
+      const hi = pricing?.max_entry_cents ?? 500000
+      if (!Number.isFinite(cents) || cents < lo || cents > hi) {
+        setError(`Set a price between KES ${lo / 100} and KES ${(hi / 100).toLocaleString()}.`)
+        return
+      }
+    }
 
     const coords = await getLocation()
     if (!coords) return
@@ -79,7 +93,8 @@ export default function CreateHangout() {
         visibility: form.visibility,
         requires_approval: form.requiresApproval,
         verified_only: form.verifiedOnly,
-        pass_tier: form.passTier || null,
+        entry_price_cents: form.paid ? Math.round(Number(form.priceKes) * 100) : null,
+        duration_minutes: form.duration,
         venue: {
           name: form.venueName || form.title,
           lat: coords.lat,
@@ -99,11 +114,10 @@ export default function CreateHangout() {
     }
   }
 
-  const passLabel = { day: 'Day pass', week: 'Week pass', month: 'Month pass' }
 
   return (
     <>
-      <div className="topbar">
+      <div className="create-topbar">
         <div className="logo"><span className="logo-dot"></span>Juana</div>
         <Link to="/dashboard" className="close-btn" aria-label="Close">✕</Link>
       </div>
@@ -179,15 +193,27 @@ export default function CreateHangout() {
           </div>
 
           <div className="field-group">
+            <label>HOW LONG</label>
+            <div className="seg-toggle" style={{ marginBottom: 10 }}>
+              {[[60, '1h'], [120, '2h'], [180, '3h'], [240, '4h'], [360, '6h']].map(([mins, label]) => (
+                <button key={mins} type="button" className={`seg-opt ${form.duration === mins ? 'active' : ''}`} onClick={() => update({ duration: mins })}>
+                  {label}
+                </button>
+              ))}
+            </div>
+            <p style={{ fontSize: 12, color: 'var(--slate)' }}>When time's up it disappears from Nearby on its own and the chat closes — no cleanup needed.</p>
+          </div>
+
+          <div className="field-group">
             <label>WHO CAN JOIN</label>
-            <div className={`privacy-opt ${form.visibility === 'open' ? 'selected' : ''}`} onClick={() => update({ visibility: 'open' })} role="button" tabIndex={0}>
+            <div className={`privacy-opt ${form.visibility === 'open' ? 'selected' : ''}`} onClick={() => update({ visibility: 'open', ...(form.verifiedTouched ? {} : { verifiedOnly: true }) })} role="button" tabIndex={0}>
               <div className="radio"></div>
               <div>
                 <div className="name">Open — visible on Nearby</div>
                 <div className="desc">Anyone with Nearby turned on at this venue can see and join.</div>
               </div>
             </div>
-            <div className={`privacy-opt ${form.visibility === 'invite_only' ? 'selected' : ''}`} onClick={() => update({ visibility: 'invite_only' })} role="button" tabIndex={0}>
+            <div className={`privacy-opt ${form.visibility === 'invite_only' ? 'selected' : ''}`} onClick={() => update({ visibility: 'invite_only', ...(form.verifiedTouched ? {} : { verifiedOnly: false }) })} role="button" tabIndex={0}>
               <div className="radio"></div>
               <div>
                 <div className="name">Invite only</div>
@@ -197,29 +223,56 @@ export default function CreateHangout() {
           </div>
 
           <div className="field-group">
-            <label>PRICE TO MESSAGE</label>
-            <div className={`privacy-opt ${!form.passTier ? 'selected' : ''}`} onClick={() => update({ passTier: '' })} role="button" tabIndex={0}>
+            <label>ENTRY PRICE</label>
+            <div className={`privacy-opt ${!form.paid ? 'selected' : ''}`} onClick={() => update({ paid: false })} role="button" tabIndex={0}>
               <div className="radio"></div>
               <div>
-                <div className="name">Free hangout</div>
+                <div className="name">Free</div>
                 <div className="desc">Anyone can join. Messaging still needs a pass, same as everywhere else on Juana.</div>
               </div>
             </div>
-            {['day', 'week', 'month'].map((tier) => (
-              <div
-                key={tier}
-                className={`privacy-opt ${form.passTier === tier ? 'selected' : ''}`}
-                onClick={() => update({ passTier: tier })}
-                role="button"
-                tabIndex={0}
-              >
-                <div className="radio"></div>
-                <div>
-                  <div className="name">Paid — {passLabel[tier]}</div>
-                  <div className="desc">Joining auto-grants a {tier} pass, unlocking messaging everywhere on Juana.</div>
-                </div>
+            <div className={`privacy-opt ${form.paid ? 'selected' : ''}`} onClick={() => update({ paid: true })} role="button" tabIndex={0}>
+              <div className="radio"></div>
+              <div>
+                <div className="name">Paid — you set the price</div>
+                <div className="desc">Everyone who joins pays it, and gets a 1-day messaging pass included.</div>
               </div>
-            ))}
+            </div>
+            {form.paid && (() => {
+              const price = Number(form.priceKes)
+              const lo = (pricing?.min_entry_cents ?? 5000) / 100
+              const hi = (pricing?.max_entry_cents ?? 500000) / 100
+              const share = pricing?.host_share ?? 0.8
+              const valid = Number.isFinite(price) && price >= lo && price <= hi
+              const perPerson = Math.floor(price * share)
+              const joiners = Math.max(0, form.capacity - 1) // you hold one of the spots
+              return (
+                <div style={{ marginTop: 14 }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                    <span style={{ fontFamily: "'Space Mono', monospace", fontSize: 13, color: 'var(--slate)' }}>KES</span>
+                    <input
+                      type="number"
+                      inputMode="numeric"
+                      min={lo}
+                      max={hi}
+                      value={form.priceKes}
+                      onChange={(e) => update({ priceKes: e.target.value })}
+                      onWheel={(e) => e.currentTarget.blur()} // scrolling the page must never nudge the price
+                      aria-label="Entry price in KES"
+                      style={{
+                        flex: 1, background: 'var(--surface-2)', border: `1px solid ${valid ? 'var(--line)' : 'var(--coral)'}`,
+                        borderRadius: 12, padding: '13px 16px', color: 'var(--paper)', fontSize: 16,
+                      }}
+                    />
+                  </div>
+                  <p style={{ fontSize: 12, marginTop: 8, color: valid ? 'var(--slate)' : 'var(--coral)' }}>
+                    {valid
+                      ? `You earn KES ${perPerson.toLocaleString()} per person (after Juana's ${Math.round((1 - share) * 100)}% fee) — up to KES ${(perPerson * joiners).toLocaleString()} if all ${joiners} spots fill.`
+                      : `Pick a price between KES ${lo.toLocaleString()} and KES ${hi.toLocaleString()}.`}
+                  </p>
+                </div>
+              )
+            })()}
           </div>
 
           <div className="field-group">
@@ -265,9 +318,14 @@ export default function CreateHangout() {
               type="button"
               className={`switch ${form.verifiedOnly ? 'on' : ''}`}
               aria-label="Toggle verified-only"
-              onClick={() => update({ verifiedOnly: !form.verifiedOnly })}
+              onClick={() => update({ verifiedOnly: !form.verifiedOnly, verifiedTouched: true })}
             />
           </div>
+          {form.visibility === 'invite_only' && form.verifiedOnly && (
+            <p style={{ fontSize: 12, color: 'var(--coral)', marginTop: 8, lineHeight: 1.5 }}>
+              Heads up: people you invite will be turned away until they've verified their identity — which takes a manual review. Turn this off if you trust your guest list.
+            </p>
+          )}
 
           {error && <p style={{ color: 'var(--coral)', marginTop: 16, fontSize: 13 }}>{error}</p>}
 
@@ -289,14 +347,14 @@ export default function CreateHangout() {
             <div className="preview-thumb">{form.icon}</div>
             <div className="title">{form.title || 'Untitled hangout'}</div>
             <div className="meta">
-              {(form.venueName || 'Your location').toUpperCase()} · {form.when === 'now' ? 'LIVE NOW' : 'SCHEDULED'}
+              {(form.venueName || 'Your location').toUpperCase()} · {form.when === 'now' ? 'LIVE NOW' : 'SCHEDULED'} · {form.duration / 60}H
             </div>
             <div className="desc">{form.description || 'No description yet.'}</div>
             <div className="preview-badges">
               <span className="pbadge lime">{form.visibility === 'open' ? '● OPEN NOW' : '● INVITE ONLY'}</span>
               <span className="pbadge">{form.capacity} SPOTS</span>
               {form.verifiedOnly && <span className="pbadge">VERIFIED ONLY</span>}
-              {form.passTier && <span className="pbadge">{passLabel[form.passTier].toUpperCase()}</span>}
+              {form.paid && <span className="pbadge">KES {Number(form.priceKes) || 0}</span>}
             </div>
             <div className="preview-host">
               <div className="preview-avatar" style={photoStyle(me)}></div>

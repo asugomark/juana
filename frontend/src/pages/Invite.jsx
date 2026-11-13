@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useParams, useSearchParams, useNavigate, Link } from 'react-router-dom'
 import { api, getToken } from '../api/client'
+import { formatKes } from '../utils/price'
 import { setPendingInvite } from '../utils/invite'
 import './Invite.css'
 
@@ -56,17 +57,30 @@ export default function Invite() {
         <p className="invite-meta">
           {hangout.venue?.name ? `${hangout.venue.name} · ` : ''}
           {hangout.member_count}/{hangout.capacity} going
-          {hangout.is_paid ? ` · ${hangout.pass_tier} pass` : ' · Free to join'}
+          {hangout.is_paid ? ` · ${formatKes(hangout.price_cents)} entry` : ' · Free to join'}
+          {hangout.verified_only ? ' · Verified profiles only' : ''}
         </p>
 
         {hangout.description && <p className="invite-desc">{hangout.description}</p>}
+
+        {hangout.verified_only && hangout.status !== 'ended' && (
+          <p className="invite-fine" style={{ fontSize: 12, marginTop: 14, lineHeight: 1.5 }}>
+            This hangout is for verified profiles. You can sign up now and verify your identity afterwards.
+          </p>
+        )}
 
         <div className="invite-host">
           Hosted by <strong>{hangout.host?.display_name}</strong>
         </div>
 
-        <Link to="/register" className="invite-cta">Join Juana to RSVP →</Link>
-        <p className="invite-fine">Free to sign up, takes about 2 minutes.</p>
+        {hangout.status === 'ended' ? (
+          <p className="invite-fine" style={{ fontSize: 13, marginTop: 24 }}>This hangout has ended. Browse what's on right now on Juana.</p>
+        ) : (
+          <>
+            <Link to="/register" className="invite-cta">Join Juana to RSVP →</Link>
+            <p className="invite-fine">Free to sign up, takes about 2 minutes.</p>
+          </>
+        )}
       </div>
     </div>
   )

@@ -1,6 +1,7 @@
 import { useEffect, useState, useCallback, useMemo } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { api, clearToken } from '../api/client'
+import { formatKes } from '../utils/price'
 import Sidebar from '../components/Sidebar'
 import { photoStyle } from '../utils/avatar'
 import './Dashboard.css'
@@ -199,7 +200,7 @@ export default function Nearby() {
                       </Link>
                       <div className="m">
                         {h.distance_mi != null ? `${h.distance_mi} MI · ` : ''}
-                        {h.member_count} HERE{h.is_paid ? ` · ${h.pass_tier.toUpperCase()} PASS` : ''}
+                        {h.member_count} HERE{h.is_paid ? ` · ${formatKes(h.price_cents).toUpperCase()}` : ''}
                       </div>
                     </div>
                     <Link to={`/hangouts/${h.id}`} className="join-btn">View</Link>

@@ -4,10 +4,10 @@ from flask import Blueprint, request, jsonify, current_app, send_from_directory
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from app.extensions import db, socketio
 from app.models.user import User
-from app.models.hangout import HangoutMember
+from app.models.hangout import Hangout, HangoutMember
 from app.models.message import Message
 from app.models.block import is_blocked_either_way
-from app.utils.passes import can_user_send_message, consume_newbie_allowance_if_applicable
+from app.utils.passes import can_user_send_message, consume_newbie_allowance_if_applicable, pass_required_payload
 from app.utils import cloud_storage
 
 media_bp = Blueprint("media", __name__, url_prefix="/api")
@@ -61,9 +61,12 @@ def send_hangout_media(hangout_id):
     if not is_member:
         return jsonify({"error": "not a member of this hangout"}), 403
 
+    if Hangout.query.get_or_404(hangout_id).status() == "ended":
+        return jsonify({"error": "hangout_ended", "message": "This hangout has ended — the chat is closed."}), 410
+
     # Same hard pass-gate as text sends — media isn't a loophole around paying for messaging.
     if not can_user_send_message(user):
-        return jsonify({"error": "pass_required", "message": "Get a pass to send messages"}), 402
+        return jsonify(pass_required_payload(user.id)), 402
 
     if "media" not in request.files:
         return jsonify({"error": "no file provided — field name must be 'media'"}), 400
@@ -107,7 +110,7 @@ def send_hola_media(other_user_id):
         return jsonify({"error": "unable to send message"}), 403
 
     if not can_user_send_message(user):
-        return jsonify({"error": "pass_required", "message": "Get a pass to send messages"}), 402
+        return jsonify(pass_required_payload(user.id)), 402
 
     if "media" not in request.files:
         return jsonify({"error": "no file provided — field name must be 'media'"}), 400

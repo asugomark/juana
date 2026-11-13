@@ -113,7 +113,7 @@ export default function Earnings() {
         <div className="topbar">
           <div className="greeting">
             <h1>Earnings</h1>
-            <p>From passes sold through your paid hangouts.</p>
+            <p>From entry fees on your paid hangouts, after Juana's fee.</p>
           </div>
           <button className="payout-btn" onClick={handleWithdrawClick} disabled={summary.available_cents <= 0}>
             Withdraw {kes(summary.available_cents)}
@@ -170,7 +170,7 @@ export default function Earnings() {
                   <div className="h-thumb">{h.icon}</div>
                   <div className="h-info">
                     <div className="name">{h.title}</div>
-                    <div className="meta">{h.pass_tier ? `${h.pass_tier.toUpperCase()} PASS · ` : ''}{h.passes_sold} SOLD</div>
+                    <div className="meta">{h.price_cents ? `${kes(h.price_cents)} ENTRY · ` : ''}{h.passes_sold} JOINED</div>
                   </div>
                   <span className={`h-status ${h.is_live ? 'live' : ''}`}>{h.is_live ? 'LIVE' : 'ENDED'}</span>
                   <div className="h-rev">

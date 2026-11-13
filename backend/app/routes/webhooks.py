@@ -18,6 +18,7 @@ from flask import Blueprint, request, jsonify, current_app
 from app.extensions import db
 from app.models.pass_model import Transaction
 from app.models.user import User
+from app.models.hangout import HangoutMember
 from app.utils.passes import grant_pass
 
 webhooks_bp = Blueprint("webhooks", __name__, url_prefix="/api/webhooks/sasapay")
@@ -61,7 +62,14 @@ def collection_callback():
                 from app.models.hangout import Hangout
                 hangout = Hangout.query.get(txn.hangout_id)
             if hangout:
-                grant_pass(txn.user_id, hangout.pass_tier, source="hangout_join", source_hangout_id=hangout.id)
+                # Payment is what makes someone a member of a paid hangout (see _join_paid_hangout).
+                member = HangoutMember.query.filter_by(hangout_id=hangout.id, user_id=txn.user_id).first()
+                if member:
+                    member.status = "active"
+                else:
+                    db.session.add(HangoutMember(hangout_id=hangout.id, user_id=txn.user_id, status="active"))
+                grant_pass(txn.user_id, hangout.pass_tier, source="hangout_join", source_hangout_id=hangout.id,
+                           starts_at=hangout.starts_at)  # begins with the hangout, not at payment
 
     db.session.commit()
     return jsonify({"received": True}), 200

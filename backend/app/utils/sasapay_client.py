@@ -21,6 +21,7 @@ Never mark a Transaction as completed from the initial response alone.
 """
 import time
 import requests
+from flask import current_app
 from app.utils.settings import get_sasapay_config
 
 
@@ -88,7 +89,17 @@ def request_collection(*, phone_number, amount, network_code, account_reference,
     )
     if not res.ok:
         raise SasaPayError(f"SasaPay collection request failed: {res.status_code} {res.text}")
-    return res.json()
+    try:
+        body = res.json()
+    except ValueError:
+        raise SasaPayError(f"SasaPay sent an unreadable reply: {res.text[:200]}")
+    # Logged on purpose: when a prompt doesn't arrive, SasaPay's own reply is the first thing to read.
+    current_app.logger.info("SasaPay request-payment reply: %s", body)
+    # SasaPay can answer HTTP 200 and still refuse (bad number, bad reference...). Only a tracking ID
+    # means a prompt was really sent; without one a payment could never be matched to its callback.
+    if not body.get("CheckoutRequestID"):
+        raise SasaPayError(f"SasaPay did not accept the payment request: {body.get('detail') or body.get('message') or body}")
+    return body
 
 
 def process_wallet_otp(*, checkout_request_id, verification_code):

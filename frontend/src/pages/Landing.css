@@ -30,13 +30,13 @@
   :focus-visible{outline:2px solid var(--lime); outline-offset:3px;}
 
   /* NAV */
-  nav{
+  .landing-nav{
     position:sticky; top:0; z-index:50;
     background:rgba(18,20,28,0.85);
     backdrop-filter:blur(10px);
     border-bottom:1px solid var(--line);
   }
-  nav .wrap{display:flex; align-items:center; justify-content:space-between; height:76px;}
+  .landing-nav .wrap{display:flex; align-items:center; justify-content:space-between; height:76px;}
   .logo{font-family:'Fraunces', serif; font-size:22px; font-weight:600; display:flex; align-items:center; gap:8px;}
   .logo-dot{width:8px; height:8px; border-radius:50%; background:var(--lime); box-shadow:0 0 12px var(--lime);}
   .nav-links{display:flex; gap:36px; font-size:14px; color:var(--slate);}

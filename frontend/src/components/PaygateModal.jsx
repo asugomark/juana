@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { api } from '../api/client'
+import { normalizePhone } from '../utils/phone'
 
 const PASS_META = {
   day: { label: 'Day pass', sub: '24 HOURS · UNLIMITED MESSAGES' },
@@ -38,14 +39,15 @@ export default function PaygateModal({ onClose, onPurchased }) {
     e.preventDefault()
     setError(null)
 
-    if (!/^254(7|1)\d{8}$/.test(phone)) {
-      setError('Enter your number in the format 2547XXXXXXXX')
+    const msisdn = normalizePhone(phone)
+    if (!msisdn) {
+      setError('Enter a Safaricom number, like 0712 345 678')
       return
     }
 
     setStage('waiting')
     try {
-      await api.purchasePass(tier, phone)
+      await api.purchasePass(tier, msisdn)
       pollRef.current = setInterval(async () => {
         const status = await api.passStatus()
         if (status.has_active_pass) {
@@ -104,7 +106,7 @@ export default function PaygateModal({ onClose, onPurchased }) {
             <div style={{ marginTop: 20 }}>
               <input
                 type="tel"
-                placeholder="2547XXXXXXXX"
+                placeholder="0712 345 678"
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
                 style={{
