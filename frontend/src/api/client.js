@@ -1,5 +1,5 @@
-const BASE_URL = import.meta.env.VITE_API_URL || '/api'
-export function getToken() {
+const BASE_URL = import.meta.env.VITE_API_BASE_URL || '/api'
+  export function getToken() {
   return localStorage.getItem('juana_token')
 }
 
