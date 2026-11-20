@@ -14,6 +14,16 @@ class Config:
         "DATABASE_URL", "mysql+pymysql://root:password@localhost:3306/juana"
     )
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+    SQLALCHEMY_ENGINE_OPTIONS = {
+        "pool_pre_ping": True,
+        "pool_recycle": 280,
+        "pool_timeout": 10,
+        "connect_args": {
+            "connect_timeout": 5,
+            "read_timeout": 10,
+            "write_timeout": 10,
+        },
+    }
 
     # These SASAPAY_*/PUBLIC_CALLBACK_BASE_URL env vars are now only a BOOTSTRAP
     # fallback — once an admin saves credentials via Admin → Finance → Settings,
