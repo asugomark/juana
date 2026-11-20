@@ -1,0 +1,68 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: juana_backend
+    restart: unless-stopped
+    ports:
+      # Bound to localhost on port 5001 so backend is accessible via Nginx reverse proxy
+      - "127.0.0.1:5001:5001"
+    env_file:
+      - ./backend/.env
+    environment:
+      - PORT=5001
+      - FLASK_ENV=production
+    volumes:
+      # Persistent storage for local file/photo uploads (profile photos, KYC, status, media)
+      - juana_uploads:/app/uploads
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - juana_network
+
+  db:
+    image: mysql:8.0
+    container_name: juana_db
+    restart: unless-stopped
+    command: >
+      --default-authentication-plugin=mysql_native_password
+      --character-set-server=utf8mb4
+      --collation-server=utf8mb4_unicode_ci
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-juana}
+      MYSQL_USER: ${MYSQL_USER:-juana_user}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-change_me_to_a_strong_password}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-change_me_to_a_strong_root_password}
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p$${MYSQL_ROOT_PASSWORD}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    networks:
+      - juana_network
+
+  redis:
+    image: redis:7-alpine
+    container_name: juana_redis
+    restart: unless-stopped
+    command: redis-server --appendonly yes
+    volumes:
+      - redis_data:/data
+    networks:
+      - juana_network
+
+networks:
+  juana_network:
+    driver: bridge
+
+volumes:
+  mysql_data:
+  redis_data:
+  juana_uploads:

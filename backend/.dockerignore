@@ -1,0 +1,14 @@
+frontend/
+venv/
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.git/
+.gitignore
+.env
+.idea/
+.pytest_cache/
+tests/
+uploads/
