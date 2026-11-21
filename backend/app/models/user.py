@@ -1,11 +1,36 @@
 import uuid
 from datetime import datetime
-import bcrypt
+from werkzeug.security import generate_password_hash, check_password_hash
+try:
+    import bcrypt
+except ImportError:
+    bcrypt = None
 from app.extensions import db
 
 
 def gen_uuid():
     return str(uuid.uuid4())
+
+
+def verify_password(raw_password, password_hash):
+    """
+    Safely verifies password against stored hash.
+    Supports both legacy bcrypt ($2b$, $2a$, $2y$) and modern Werkzeug hashes.
+    Non-blocking and cooperative with gevent.
+    """
+    if not password_hash or not raw_password:
+        return False
+    if str(password_hash).startswith(("$2b$", "$2a$", "$2y$")):
+        if bcrypt:
+            try:
+                return bcrypt.checkpw(raw_password.encode("utf-8"), password_hash.encode("utf-8"))
+            except Exception:
+                return False
+        return False
+    try:
+        return check_password_hash(password_hash, raw_password)
+    except Exception:
+        return False
 
 
 class User(db.Model):
@@ -66,17 +91,22 @@ class User(db.Model):
     )
 
     def set_password(self, raw_password):
-        self.password_hash = bcrypt.hashpw(
-            raw_password.encode("utf-8"), bcrypt.gensalt()
-        ).decode("utf-8")
+        self.password_hash = generate_password_hash(raw_password)
 
     def check_password(self, raw_password):
-        return bcrypt.checkpw(
-            raw_password.encode("utf-8"), self.password_hash.encode("utf-8")
-        )
+        valid = verify_password(raw_password, self.password_hash)
+        if valid and self.password_hash and self.password_hash.startswith(("$2b$", "$2a$", "$2y$")):
+            try:
+                self.set_password(raw_password)
+                db.session.commit()
+            except Exception:
+                db.session.rollback()
+        return valid
 
     @property
     def age(self):
+        if not self.birthdate:
+            return None
         today = datetime.utcnow().date()
         years = today.year - self.birthdate.year
         if (today.month, today.day) < (self.birthdate.month, self.birthdate.day):
@@ -124,7 +154,7 @@ class User(db.Model):
             "nearby_visible": self.nearby_visible,
             "current_lat": self.current_lat,
             "current_lng": self.current_lng,
-            "created_at": self.created_at.isoformat(),
+            "created_at": self.created_at.isoformat() if self.created_at else None,
             "photos": [p.to_dict() for p in photos],
         }
 

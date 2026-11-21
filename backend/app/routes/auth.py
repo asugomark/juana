@@ -13,7 +13,7 @@ auth_bp = Blueprint("auth", __name__, url_prefix="/api/auth")
 @auth_bp.post("/register")
 def register():
     try:
-        data = request.get_json() or {}
+        data = request.get_json(silent=True) or {}
         email = (data.get("email") or "").strip().lower()
         password = data.get("password") or ""
         display_name = (data.get("display_name") or "").strip()
@@ -50,7 +50,7 @@ def register():
 @auth_bp.post("/login")
 def login():
     try:
-        data = request.get_json() or {}
+        data = request.get_json(silent=True) or {}
         email = (data.get("email") or "").strip().lower()
         password = data.get("password") or ""
 
@@ -99,7 +99,7 @@ def update_me():
         if not user:
             return jsonify({"error": "user not found"}), 404
 
-        data = request.get_json() or {}
+        data = request.get_json(silent=True) or {}
 
         if "bio" in data:
             user.bio = (data["bio"] or "").strip()[:2000] or None
