@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="409885e4-c662-4081-af47-9ef823627330" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/juana.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/.env.example" beforeDir="false" afterPath="$PROJECT_DIR$/backend/.env.example" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/app/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/app/config.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/app/models/hangout_recap.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/app/models/user.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/app/models/user.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/app/routes/earnings.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/app/routes/earnings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/app/routes/hangout_recap.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/app/routes/hangouts.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/app/routes/hangouts.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/app/routes/messages.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/app/routes/messages.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/app/routes/nearby.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/app/routes/nearby.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/app/utils/geo.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/app/utils/geo.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/backend/.env.example" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/backend/app/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/backend/app/config.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/backend/app/extensions.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/backend/app/models/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/backend/app/models/block.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/backend/app/models/hangout.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/backend/app/models/like.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/backend/app/models/message.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/backend/app/models/pass_model.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/backend/app/models/payment_credential.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/backend/app/models/rating.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/backend/app/models/report.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/backend/app/models/status.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/backend/app/models/user.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/backend/app/routes/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/backend/app/routes/admin.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/backend/app/routes/auth.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/backend/app/routes/earnings.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/backend/app/routes/finance_settings.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/backend/app/routes/hangouts.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/backend/app/routes/likes.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/backend/app/routes/media.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/backend/app/routes/messages.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/backend/app/routes/nearby.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/backend/app/routes/passes.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/backend/app/routes/photos.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/backend/app/routes/ratings.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/backend/app/routes/safety.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/backend/app/routes/status.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/backend/app/routes/users.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/backend/app/routes/verification.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/backend/app/routes/webhooks.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/backend/app/sockets.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/backend/app/utils/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/backend/app/utils/admin.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/backend/app/utils/geo.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/backend/app/utils/passes.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/backend/app/utils/sasapay_client.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/backend/app/utils/settings.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/backend/migrations/README" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/backend/migrations/alembic.ini" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/backend/migrations/env.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/backend/migrations/script.py.mako" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/backend/migrations/versions/07a2cd814270_add_profile_fields.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/backend/migrations/versions/107ccc831569_add_message_media_and_status_updates.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/backend/migrations/versions/3d203913c94f_add_ratings_likes_reports_blocks_invite_.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/backend/migrations/versions/5195e71f5400_juana_profile_photos.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/backend/migrations/versions/b8269342d886_initial_schema.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/backend/requirements.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/backend/run.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/frontend/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/frontend/package-lock.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/frontend/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/frontend/public/apple-touch-icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/frontend/public/icon-192.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/frontend/public/icon-512-maskable.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/frontend/public/icon-512.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/frontend/src/App.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/frontend/src/api/client.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/frontend/src/api/socket.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/frontend/src/components/CreateStatusModal.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/frontend/src/components/KycGateModal.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/frontend/src/components/KycGateModal.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/frontend/src/components/MediaAttachButton.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/frontend/src/components/MessageBubble.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/frontend/src/components/PaygateModal.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/frontend/src/components/ReportModal.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/frontend/src/components/Sidebar.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/frontend/src/components/StarRating.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/frontend/src/components/StatusBar.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/frontend/src/components/StatusBar.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/frontend/src/components/StatusViewer.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/frontend/src/components/StatusViewer.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/frontend/src/main.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/frontend/src/pages/AdminDashboard.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/frontend/src/pages/AdminDashboard.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/frontend/src/pages/AdminFinanceSettings.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/frontend/src/pages/CreateHangout.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/frontend/src/pages/CreateHangout.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/frontend/src/pages/Dashboard.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/frontend/src/pages/Dashboard.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/frontend/src/pages/Earnings.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/frontend/src/pages/Earnings.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/frontend/src/pages/HangoutDetail.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/frontend/src/pages/HangoutDetail.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/frontend/src/pages/Hangouts.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/frontend/src/pages/HolaInbox.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/frontend/src/pages/HolaInbox.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/frontend/src/pages/HolaThread.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/frontend/src/pages/Invite.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/frontend/src/pages/Invite.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/frontend/src/pages/Landing.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/frontend/src/pages/Landing.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/frontend/src/pages/Login.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/frontend/src/pages/Login.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/frontend/src/pages/Nearby.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/frontend/src/pages/Nearby.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/frontend/src/pages/Profile.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/frontend/src/pages/Profile.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/frontend/src/utils/avatar.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/frontend/src/utils/invite.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/frontend/vite.config.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/gunicorn.conf.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/main.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/migrations/README" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/migrations/alembic.ini" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/migrations/env.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/migrations/script.py.mako" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/migrations/versions/972c028a17fb_initial_schema.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/uploads/kyc_documents/2e4141e9-8bed-4908-8bcc-90735f847a12/id_document-8d21c0a4-df80-47e9-9536-5007c8331ac2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/uploads/kyc_documents/2e4141e9-8bed-4908-8bcc-90735f847a12/selfie-e7ed6ecf-348d-41ff-b196-258003f63d82.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/uploads/kyc_documents/4315274d-50bf-4a0a-be99-24e8b1b91ee7/id_document-d011bf9b-a241-492b-879a-cf60e630f469.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/uploads/kyc_documents/4315274d-50bf-4a0a-be99-24e8b1b91ee7/selfie-f82441f7-80ec-4502-96bc-861c13e08710.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/uploads/kyc_documents/598a9a7f-1bc2-4a41-ab60-b91cfc9978b8/id_document-e471a110-3111-4e7b-a07a-76209333caca.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/uploads/kyc_documents/598a9a7f-1bc2-4a41-ab60-b91cfc9978b8/selfie-62aae7ed-f749-4af1-87a9-f623a6fb6010.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/uploads/kyc_documents/82cb916d-4d03-4e40-a633-e17195795235/id_document-b3606d98-4862-4d69-8da9-69b4700b549f.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/uploads/kyc_documents/82cb916d-4d03-4e40-a633-e17195795235/selfie-c26bd1ab-d5ea-4b18-bef0-027f16d0a777.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/uploads/kyc_documents/cd8076c7-230b-4b7f-b9d5-d196b78ebce0/id_document-3af3e9c3-858d-4cde-b3c6-55caae3c2be6.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/uploads/kyc_documents/cd8076c7-230b-4b7f-b9d5-d196b78ebce0/selfie-64c9e542-ef2e-4232-b24d-7b6717ebab63.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/uploads/message_media/135b83a4-5708-44d7-8d4f-49d39661eb7f/1f702cc7-f24e-45a6-8fca-87e62010ade2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/uploads/message_media/135b83a4-5708-44d7-8d4f-49d39661eb7f/d90b89aa-e76a-4829-95cc-0f6bf585c65f.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/uploads/message_media/135b83a4-5708-44d7-8d4f-49d39661eb7f/fdb82991-f12e-45a6-9f4d-ff4b284c7150.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/uploads/message_media/17a6f328-ea4d-41f7-b14d-c9fb0b06891a/14255223-fd9f-47ae-8803-69fd899f4d1b.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/uploads/message_media/82cb916d-4d03-4e40-a633-e17195795235/d1c8beb3-60b4-458a-951f-fb00197c5560.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/uploads/message_media/df08613a-ffbf-448b-bf98-61c3a133bf5f/de5e2b3c-6ed3-4b41-9b6a-b2c9cb20807a.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/uploads/message_media/df1b5907-b918-4e9b-86a2-698a26438ed1/0bdf078d-1e7e-45c8-a583-b800c8aede42.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/uploads/profile_photos/135b83a4-5708-44d7-8d4f-49d39661eb7f/c209018e-4685-4d15-a644-ba0402254f13.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/uploads/profile_photos/1ed93bb7-f9a1-4536-8eda-9e122e6161a6/cf090edf-ee24-40c0-b004-3c5c3b67da76.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/uploads/profile_photos/4315274d-50bf-4a0a-be99-24e8b1b91ee7/c08b7fc5-6464-4684-8b06-498eae5d70cd.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/uploads/profile_photos/4eb3cdf3-93db-4ab7-b097-87f234b13c08/2c241069-5d82-4d8c-b301-6d028efd0b3e.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/uploads/profile_photos/82cb916d-4d03-4e40-a633-e17195795235/4150201a-8da3-4961-bc5b-4bd8b9a581a0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/uploads/profile_photos/82cb916d-4d03-4e40-a633-e17195795235/63eb2134-0941-4588-b4cc-5f7312d63e75.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/uploads/profile_photos/82cb916d-4d03-4e40-a633-e17195795235/72b89fe2-d7a5-4ccb-ae3b-b75af7d99d63.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/uploads/profile_photos/82cb916d-4d03-4e40-a633-e17195795235/84f84a60-44c6-475d-9f7b-171703932669.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/uploads/profile_photos/82cb916d-4d03-4e40-a633-e17195795235/8614e762-df23-4116-a64e-10db87f16e44.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/uploads/profile_photos/82cb916d-4d03-4e40-a633-e17195795235/d051fdaa-e342-4433-8e10-21ca229f3ef7.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/uploads/profile_photos/a8c6b9ca-a772-48af-8736-edf15a6d78a9/7a3484a1-60f9-4f24-96d8-d21130a847d1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/uploads/profile_photos/cd8076c7-230b-4b7f-b9d5-d196b78ebce0/2745b2e3-3a34-4040-be0a-42f66f3310ed.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/uploads/profile_photos/df08613a-ffbf-448b-bf98-61c3a133bf5f/135dc0c6-da31-4e58-8e6c-486c75fd4374.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/uploads/profile_photos/df08613a-ffbf-448b-bf98-61c3a133bf5f/2ffd9cc9-bb8a-4350-b557-bdeb452dfbf9.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/uploads/profile_photos/df08613a-ffbf-448b-bf98-61c3a133bf5f/5cce0a69-2184-457f-855e-85bf3627c32e.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/uploads/profile_photos/df08613a-ffbf-448b-bf98-61c3a133bf5f/8819aa3e-fe81-4c58-9699-9552c288a7c2.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/uploads/profile_photos/df08613a-ffbf-448b-bf98-61c3a133bf5f/90eb8285-ed9e-4d06-8d3d-c894854cf9d9.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/uploads/profile_photos/df08613a-ffbf-448b-bf98-61c3a133bf5f/d23bfbb7-e645-4e8e-ba99-b2b155a0c84d.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/uploads/profile_photos/eb1c0aba-79a6-4df1-9788-50c724424f47/3c651197-a0ea-43dc-a72a-e49e0f827268.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/uploads/profile_photos/eb1c0aba-79a6-4df1-9788-50c724424f47/825e4844-2833-4ca1-93c8-5763152e9067.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/uploads/profile_photos/eb1c0aba-79a6-4df1-9788-50c724424f47/efcb8990-6202-4a5b-b37c-658f6e17b121.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/uploads/profile_photos/eea2af5a-d565-4ea6-b49f-ea30b8e7dc7d/2861b644-08f3-45d3-b02e-4e6b5215cec0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/uploads/profile_photos/eea2af5a-d565-4ea6-b49f-ea30b8e7dc7d/92c91d00-179e-4eef-a515-ce4c7c86608b.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/uploads/status_media/135b83a4-5708-44d7-8d4f-49d39661eb7f/59765889-c9fd-4df7-b179-efa180fa2978.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/uploads/status_media/17a6f328-ea4d-41f7-b14d-c9fb0b06891a/b96c1a44-4ecb-4bb8-81b4-f560cefe8285.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/uploads/status_media/2e4141e9-8bed-4908-8bcc-90735f847a12/c1710672-3da2-4578-b43d-72f3539bfd7b.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/uploads/status_media/2ebd7b4f-0e42-43fa-8f7a-82b92184ef76/1b59760a-3d1a-44da-a6d9-f77655300061.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/uploads/status_media/2fc439bb-ae19-4e88-8cd6-bbd0e0290236/8d567b32-6039-4bf4-a9ac-1495cc94bb0e.mp4" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/uploads/status_media/82cb916d-4d03-4e40-a633-e17195795235/9ee0d6ee-c704-46ca-9f29-ecf25805c6ad.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/uploads/status_media/957a2a30-b4a2-458c-b712-a83176b7e74e/4a7fd092-d35b-4a40-955f-dd3446483d82.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/uploads/status_media/a8c6b9ca-a772-48af-8736-edf15a6d78a9/51615ec4-9d4f-4a09-87b1-3f03f7be647c.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/uploads/status_media/b29b6f16-47fa-453a-beee-4ef583ae9fb7/a2cfae9f-4e2d-4bed-b4de-8831a25e10e8.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/uploads/status_media/cd8076c7-230b-4b7f-b9d5-d196b78ebce0/3b997e4c-d5b1-4e6a-8720-a30d923953cb.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/uploads/status_media/d8e48a93-0ac1-4e41-8ad3-691203e1c733/3d9f3406-4409-423c-880e-eb9a9ab7fcff.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/uploads/status_media/d8e48a93-0ac1-4e41-8ad3-691203e1c733/bb69e164-10cb-43fc-8ca2-395227e28abd.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/uploads/status_media/d8e48a93-0ac1-4e41-8ad3-691203e1c733/f7d51867-b2b4-45cc-99e7-63aa46d43c86.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/uploads/status_media/df08613a-ffbf-448b-bf98-61c3a133bf5f/41518a34-9e90-4099-93b3-08a912f4d4ee.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/uploads/status_media/df08613a-ffbf-448b-bf98-61c3a133bf5f/89886dee-01e4-4aad-8aae-ce7c4fb08993.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/uploads/status_media/eb1c0aba-79a6-4df1-9788-50c724424f47/7c470ed7-2279-49f2-b357-0c54267bf002.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/uploads/status_media/eea2af5a-d565-4ea6-b49f-ea30b8e7dc7d/437b38b7-2d73-4d4c-8479-361bbdd5afaf.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/deploy/nginx/juana.conf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/find_auth.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/api/client.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/api/client.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/api/socket.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/api/socket.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/GoLiveModal.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/GoLiveModal.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/GoLiveModal.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/GoLiveModal.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/Sidebar.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Sidebar.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/Sidebar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Sidebar.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/Dashboard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Dashboard.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/HolaThread.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/HolaThread.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/Nearby.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Nearby.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/utils/moods.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/utils/moods.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="EmbeddingIndexingInfo">
+    <option name="cachedIndexableFilesCount" value="10728" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/backend" />
+  </component>
+  <component name="McpProjectServerCommands">
+    <commands />
+    <urls />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 2
+}</component>
+  <component name="ProjectId" id="3HKe6QUDjeGt67HFLPJVYIVpeRi" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;Python.config.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
+    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Intel\PycharmProjects\juana" />
+      <recent name="C:\Users\Intel\PycharmProjects\juana\backend" />
+    </key>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-python-sdk-2653e85de345-6d6dccd035ac-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-253.31033.139" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="409885e4-c662-4081-af47-9ef823627330" name="Changes" comment="" />
+      <created>1785621012005</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1785621012005</updated>
+    </task>
+    <servers />
+  </component>
+</project>

@@ -1,0 +1,50 @@
+.status-overlay{
+  position:fixed; inset:0; background:#000; display:flex; align-items:center; justify-content:center;
+  z-index:50;
+}
+.status-modal{
+  width:100%; height:100%; max-width:480px; max-height:100vh; position:relative;
+  display:flex; flex-direction:column; background:var(--ink);
+}
+@media (min-width:520px){
+  .status-modal{ max-height:90vh; margin:5vh 0; border-radius:20px; overflow:hidden; }
+}
+
+.status-progress-row{
+  display:flex; gap:4px; padding:10px 12px 0; position:absolute; top:0; left:0; right:0; z-index:2;
+}
+.status-progress-track{flex:1; height:2.5px; background:rgba(255,255,255,0.25); border-radius:2px; overflow:hidden;}
+.status-progress-fill{height:100%; background:var(--paper); transition:width .05s linear;}
+
+.status-header{
+  position:absolute; top:20px; left:0; right:0; z-index:2; padding:0 16px;
+  display:flex; justify-content:space-between; align-items:center;
+}
+.status-header-author{
+  display:flex; flex-direction:column; color:var(--paper); text-decoration:none;
+}
+.status-header-author .name{font-size:14px; font-weight:600; text-shadow:0 1px 4px rgba(0,0,0,0.5);}
+.status-header-author .time{font-size:11px; color:rgba(243,241,234,0.75); font-family:'Space Mono', monospace;}
+.status-header-actions{display:flex; gap:10px;}
+.status-header-actions button{
+  background:rgba(18,20,28,0.5); border:none; color:var(--paper); width:32px; height:32px;
+  border-radius:50%; font-size:14px; cursor:pointer;
+}
+
+.status-content{
+  flex:1; display:flex; align-items:center; justify-content:center; position:relative;
+  background:var(--surface); cursor:pointer; overflow:hidden;
+}
+.status-content img, .status-content video{
+  width:100%; height:100%; object-fit:contain; background:#000;
+}
+.status-text-slide{
+  width:100%; height:100%; display:flex; align-items:center; justify-content:center;
+  padding:48px; text-align:center; font-family:'Fraunces', serif; font-size:28px; line-height:1.4;
+  color:var(--paper); background:linear-gradient(160deg, var(--coral) 0%, var(--surface-3) 45%, var(--lime) 100%);
+}
+.status-caption{
+  position:absolute; bottom:0; left:0; right:0; padding:20px 16px 24px;
+  background:linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+  color:var(--paper); font-size:14px;
+}

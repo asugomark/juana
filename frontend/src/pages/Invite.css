@@ -1,0 +1,27 @@
+.invite-page{
+  min-height:100vh; display:flex; align-items:center; justify-content:center; padding:24px;
+  background:var(--ink);
+}
+.invite-card{
+  width:100%; max-width:420px; background:var(--surface); border:1px solid var(--line);
+  border-radius:24px; padding:40px 36px; text-align:center;
+}
+.invite-logo{
+  font-family:'Fraunces', serif; font-size:18px; font-weight:600; display:flex; align-items:center;
+  justify-content:center; gap:8px; margin-bottom:28px; color:var(--slate);
+}
+.invite-thumb{
+  width:64px; height:64px; border-radius:16px; margin:0 auto 16px; font-size:28px;
+  background:linear-gradient(150deg, var(--surface-3), var(--ink)); display:flex;
+  align-items:center; justify-content:center;
+}
+.invite-card h1{font-size:24px; margin-bottom:8px;}
+.invite-meta{font-size:13px; color:var(--slate); font-family:'Space Mono', monospace;}
+.invite-desc{font-size:14px; color:var(--paper); margin-top:16px; line-height:1.6;}
+.invite-host{font-size:13px; color:var(--slate); margin-top:20px;}
+.invite-host strong{color:var(--paper);}
+.invite-cta{
+  display:block; background:var(--lime); color:var(--ink); font-weight:700; font-size:15px;
+  padding:16px; border-radius:100px; margin-top:24px; text-decoration:none;
+}
+.invite-fine{font-size:11px; color:var(--slate); margin-top:12px; font-family:'Space Mono', monospace;}

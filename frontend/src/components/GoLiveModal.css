@@ -1,0 +1,29 @@
+/* One "Go live" step shared by the Dashboard, the Nearby page and the side menu. */
+.mood-modal{ max-height:calc(100vh - 48px); max-height:calc(100dvh - 48px); overflow-y:auto; }
+.mood-list{ display:flex; flex-direction:column; gap:8px; margin-top:18px; }
+.mood-opt{
+  display:flex; align-items:center; gap:12px; width:100%; text-align:left;
+  background:var(--surface-2); border:1px solid var(--line); border-radius:14px;
+  padding:13px 14px; color:var(--paper); font-size:14px; transition:border-color .15s ease, background .15s ease;
+}
+.mood-opt .e{ font-size:20px; width:26px; text-align:center; flex-shrink:0; }
+.mood-opt.selected{ border-color:var(--lime); background:rgba(198,241,53,0.08); }
+.mood-note{ font-size:11px; color:var(--slate); line-height:1.6; margin-top:14px; font-family:'Space Mono', monospace; }
+
+/* the small label that shows someone's mood on a card */
+.mood-chip{
+  display:inline-flex; align-items:center; gap:5px; margin-top:5px; max-width:100%;
+  font-size:11px; padding:3px 9px; border-radius:100px; border:none;
+  background:var(--surface-3); color:var(--paper); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+}
+.mood-chip.quiet{ color:var(--slate); }
+button.mood-chip.mine{ background:rgba(198,241,53,0.12); color:var(--lime); cursor:pointer; margin:0 0 14px; font-size:12px; padding:6px 12px; }
+
+/* filter row on the Nearby page: scrolls sideways inside itself, never widens the page */
+.mood-filter{ display:flex; gap:8px; overflow-x:auto; padding:2px 0 12px; min-width:0; scrollbar-width:none; }
+.mood-filter::-webkit-scrollbar{ display:none; }
+.mood-filter button{
+  flex-shrink:0; background:var(--surface-2); color:var(--slate); border:1px solid var(--line);
+  border-radius:100px; padding:7px 13px; font-size:12px; white-space:nowrap;
+}
+.mood-filter button.active{ background:var(--lime); color:var(--ink); border-color:var(--lime); font-weight:600; }

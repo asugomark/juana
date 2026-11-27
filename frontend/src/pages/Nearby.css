@@ -1,0 +1,83 @@
+/* Radar-specific styles for the Nearby page. Shell classes (.app, .sidebar,
+   .panel, .grid, .nearby-pill, etc.) come from Dashboard.css, which this
+   page also imports — this file only adds what's new. */
+
+.radar-panel{
+  background:var(--surface); border:1px solid var(--line); border-radius:24px; padding:36px;
+  display:grid; grid-template-columns:1fr 380px; gap:40px; align-items:center; margin-bottom:28px;
+}
+.radar-frame{position:relative; aspect-ratio:1/1; max-width:420px; margin:0 auto;}
+.ring{position:absolute; inset:0; border-radius:50%; border:1px dashed rgba(243,241,234,0.14);}
+.ring.r2{inset:15%;}
+.ring.r3{inset:32%;}
+.ring.r4{inset:46%; border-style:solid; border-color:rgba(198,241,53,0.25);}
+.sweep{
+  position:absolute; inset:0; border-radius:50%;
+  background:conic-gradient(from 0deg, rgba(198,241,53,0.22), transparent 28%);
+  animation:spin 6s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg);}}
+.ping{position:absolute; width:11px; height:11px; border-radius:50%; background:var(--coral); animation:pulse 2.6s ease-out infinite;}
+.ping.lime{background:var(--lime);}
+@keyframes pulse{
+  0%{box-shadow:0 0 0 0 rgba(255,111,91,0.45);}
+  70%{box-shadow:0 0 0 14px rgba(255,111,91,0);}
+  100%{box-shadow:0 0 0 0 rgba(255,111,91,0);}
+}
+.you-dot{
+  position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:14px; height:14px;
+  border-radius:50%; background:var(--paper); border:3px solid var(--ink); z-index:2;
+}
+.you-label{
+  position:absolute; top:50%; left:50%; transform:translate(-50%, 14px); font-family:'Space Mono', monospace;
+  font-size:9px; color:var(--slate); white-space:nowrap; margin-top:8px;
+}
+.solo-tag{position:absolute; font-family:'Space Mono', monospace; font-size:10px; color:var(--slate); white-space:nowrap;}
+
+.radar-side h2{font-size:20px; margin-bottom:10px;}
+.radar-side p{color:var(--slate); font-size:14px; line-height:1.6;}
+.radar-stat{display:flex; gap:24px; margin-top:22px;}
+.radar-stat div .num{font-family:'Fraunces'; font-size:26px; color:var(--lime);}
+.radar-stat div .lbl{font-size:11px; color:var(--slate); font-family:'Space Mono', monospace; margin-top:2px;}
+.venue-chip{
+  display:inline-flex; align-items:center; gap:8px; margin-top:20px; background:var(--surface-2);
+  border:1px solid var(--line); border-radius:100px; padding:8px 16px 8px 8px; font-size:12px;
+}
+.venue-chip .ic{width:26px; height:26px; border-radius:50%; background:rgba(198,241,53,0.15); color:var(--lime); display:flex; align-items:center; justify-content:center; font-size:12px;}
+
+.hangout-row{display:flex; align-items:center; gap:14px; padding:12px; border-radius:14px; background:var(--surface-2); margin-bottom:10px;}
+.hangout-row .ic{width:40px; height:40px; border-radius:10px; background:linear-gradient(150deg, var(--surface-3), var(--ink)); display:flex; align-items:center; justify-content:center; font-size:17px; flex-shrink:0;}
+.hangout-row .info{flex:1; min-width:0;}
+.hangout-row .t{font-size:14px; font-weight:600;}
+.hangout-row .m{font-size:11px; color:var(--slate); margin-top:2px; font-family:'Space Mono', monospace;}
+
+.person-row{display:flex; align-items:center; gap:14px; padding:12px; border-radius:14px; margin-bottom:6px;}
+.person-row:hover{background:var(--surface-2);}
+.person-avatar{width:40px; height:40px; border-radius:50%; background:linear-gradient(135deg, var(--coral), var(--lime)); flex-shrink:0;}
+.person-info{flex:1; min-width:0;}
+.person-info .top{display:flex; align-items:center; gap:6px;}
+.person-info .name{font-size:14px; font-weight:600;}
+.verified-mark{color:var(--lime); font-size:11px;}
+.unverified-mark{color:var(--slate); font-size:10px; font-family:'Space Mono', monospace;}
+.person-info .m{font-size:11px; color:var(--slate); margin-top:2px; font-family:'Space Mono', monospace;}
+.msg-mini{font-family:'Space Mono', monospace; font-size:10px; color:var(--lime);}
+
+.safety-strip{
+  display:flex; gap:12px; background:rgba(198,241,53,0.06); border:1px solid rgba(198,241,53,0.2);
+  border-radius:16px; padding:16px 20px; font-size:12.5px; color:var(--slate); line-height:1.6; margin-top:24px;
+}
+.safety-strip .ic{color:var(--lime); font-size:16px; flex-shrink:0;}
+.safety-strip strong{color:var(--paper);}
+
+.off-state{
+  background:var(--surface); border:1px dashed var(--line); border-radius:24px; padding:64px 40px;
+  text-align:center;
+}
+.off-state .ic{width:64px; height:64px; border-radius:50%; background:var(--surface-2); display:flex; align-items:center; justify-content:center; font-size:26px; margin:0 auto 20px; color:var(--slate);}
+.off-state h2{font-size:22px; margin-bottom:10px;}
+.off-state p{color:var(--slate); font-size:14px; max-width:380px; margin:0 auto 24px; line-height:1.6;}
+.off-btn{background:var(--lime); color:var(--ink); font-weight:700; font-size:14px; padding:14px 28px; border-radius:100px; border:none;}
+
+@media (max-width:1080px){
+  .radar-panel{grid-template-columns:1fr;}
+}

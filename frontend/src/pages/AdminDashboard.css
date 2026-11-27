@@ -1,0 +1,52 @@
+.admin-app{display:grid; grid-template-columns:220px 1fr; min-height:100vh;}
+.admin-sidebar{
+  background:var(--surface); border-right:1px solid var(--line); padding:28px 20px;
+}
+.admin-main{padding:32px 40px 60px;}
+.admin-tabs{display:flex; gap:8px; margin-bottom:24px;}
+.admin-tab{
+  padding:9px 18px; border-radius:100px; border:none; font-size:13px; font-weight:600;
+  background:var(--surface-2); color:var(--slate); cursor:pointer;
+}
+.admin-tab.active{background:var(--lime); color:var(--ink);}
+
+.report-card{
+  background:var(--surface); border:1px solid var(--line); border-radius:16px; padding:20px; margin-bottom:14px;
+}
+.report-card-head{display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:12px;}
+.report-reason{
+  font-family:'Space Mono', monospace; font-size:10px; color:var(--coral); background:rgba(255,111,91,0.12);
+  padding:4px 10px; border-radius:100px; text-transform:uppercase; letter-spacing:0.03em;
+}
+.report-time{font-size:11px; color:var(--slate); font-family:'Space Mono', monospace;}
+.report-parties{display:flex; gap:24px; margin-bottom:12px; font-size:13px;}
+.report-parties .label{font-size:10px; color:var(--slate); font-family:'Space Mono', monospace; display:block; margin-bottom:3px;}
+.report-parties a{color:var(--lime);}
+.report-details{
+  background:var(--surface-2); border-radius:10px; padding:12px 14px; font-size:13px; color:var(--paper);
+  margin-bottom:14px; line-height:1.5;
+}
+.report-actions{display:flex; gap:10px;}
+.report-actions button{
+  padding:9px 16px; border-radius:100px; border:none; font-size:12px; font-weight:600; cursor:pointer;
+}
+.btn-dismiss{background:var(--surface-2); color:var(--slate);}
+.btn-dismiss:hover{color:var(--paper);}
+.btn-ban{background:var(--coral); color:var(--ink);}
+
+.admin-search-row{display:flex; gap:10px; margin-bottom:20px;}
+.admin-search-row input{
+  flex:1; background:var(--surface-2); border:1px solid var(--line); border-radius:12px;
+  padding:12px 16px; color:var(--paper); font-size:14px;
+}
+.user-result-row{
+  display:flex; align-items:center; gap:14px; padding:14px; background:var(--surface); border:1px solid var(--line);
+  border-radius:14px; margin-bottom:8px;
+}
+.user-result-info{flex:1; min-width:0;}
+.user-result-info .name{font-size:14px; font-weight:600;}
+.user-result-info .meta{font-size:11px; color:var(--slate); font-family:'Space Mono', monospace; margin-top:2px;}
+.banned-tag{
+  font-family:'Space Mono', monospace; font-size:10px; color:var(--coral); background:rgba(255,111,91,0.12);
+  padding:3px 9px; border-radius:100px;
+}
