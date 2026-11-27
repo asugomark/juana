@@ -5,14 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="409885e4-c662-4081-af47-9ef823627330" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/juana.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/.env.example" beforeDir="false" afterPath="$PROJECT_DIR$/backend/.env.example" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/.gitignore" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/README.md" beforeDir="false" />
@@ -135,6 +129,7 @@
       <change beforePath="$PROJECT_DIR$/backend/migrations/env.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/migrations/script.py.mako" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/migrations/versions/972c028a17fb_initial_schema.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/requirements.txt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/uploads/kyc_documents/2e4141e9-8bed-4908-8bcc-90735f847a12/id_document-8d21c0a4-df80-47e9-9536-5007c8331ac2.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/uploads/kyc_documents/2e4141e9-8bed-4908-8bcc-90735f847a12/selfie-e7ed6ecf-348d-41ff-b196-258003f63d82.jpg" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/uploads/kyc_documents/4315274d-50bf-4a0a-be99-24e8b1b91ee7/id_document-d011bf9b-a241-492b-879a-cf60e630f469.jpg" beforeDir="false" />
@@ -192,22 +187,7 @@
       <change beforePath="$PROJECT_DIR$/backend/uploads/status_media/df08613a-ffbf-448b-bf98-61c3a133bf5f/89886dee-01e4-4aad-8aae-ce7c4fb08993.jpg" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/uploads/status_media/eb1c0aba-79a6-4df1-9788-50c724424f47/7c470ed7-2279-49f2-b357-0c54267bf002.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/uploads/status_media/eea2af5a-d565-4ea6-b49f-ea30b8e7dc7d/437b38b7-2d73-4d4c-8479-361bbdd5afaf.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/deploy/nginx/juana.conf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/find_auth.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/api/client.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/api/client.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/api/socket.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/api/socket.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/GoLiveModal.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/GoLiveModal.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/GoLiveModal.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/GoLiveModal.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/Sidebar.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Sidebar.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/Sidebar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Sidebar.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/Dashboard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Dashboard.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/HolaThread.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/HolaThread.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/Nearby.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Nearby.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/utils/moods.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/utils/moods.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -218,7 +198,7 @@
     <option name="cachedIndexableFilesCount" value="10728" />
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/backend" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="McpProjectServerCommands">
     <commands />
@@ -245,7 +225,7 @@
     &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
     &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
     &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;
   }
